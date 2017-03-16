@@ -7,14 +7,14 @@
     tools:context="herbsts.soccer.MainActivity">
 
     <Spinner
-        android:layout_width="match_parent"
+        android:layout_width="395dp"
         android:layout_height="48dp"
         tools:layout_editor_absoluteY="16dp"
         tools:layout_editor_absoluteX="8dp"
         android:id="@+id/spPlayer" />
 
     <Spinner
-        android:layout_width="match_parent"
+        android:layout_width="395dp"
         android:layout_height="48dp"
         tools:layout_editor_absoluteY="72dp"
         tools:layout_editor_absoluteX="8dp"
@@ -22,7 +22,7 @@
 
     <TextView
         android:text="Messages..."
-        android:layout_width="match_parent"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteY="478dp"
         tools:layout_editor_absoluteX="8dp"

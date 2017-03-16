@@ -75,4 +75,17 @@ public class Player {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", isGoalie=" + isGoalie +
+                ", isMidFielder=" + isMidFielder +
+                ", isDefender=" + isDefender +
+                ", isForward=" + isForward +
+                ", isActive=" + isActive +
+                '}';
+    }
 }
