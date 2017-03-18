@@ -1,10 +1,12 @@
 package herbsts.soccer;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Stefan Herbst on 16.03.2017.
  */
 
-public class Player {
+public class Player implements Comparable<Player> {
     private int id = -1;
     private static int idCounter = 0;
     private String name = "";
@@ -87,5 +89,19 @@ public class Player {
                 ", isForward=" + isForward +
                 ", isActive=" + isActive +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Player p) {
+        int helpReturn = 0;
+
+        helpReturn = this.name.compareTo(p.getName());
+
+        if (helpReturn == 0)
+        {
+            helpReturn = this.id - p.getId();
+        }
+
+        return helpReturn;
     }
 }

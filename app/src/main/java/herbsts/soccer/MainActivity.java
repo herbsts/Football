@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
     /*
     non-gui-attributes
      */
-
+    private Database db = null;
 
     /*
     gui-attributes
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
+            this.db = Database.newInstance();
             this.getAllViews();
         }
         catch (Exception e)
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //e.g. onClick
-    private void registrateEvents()
+    private void registrateEventhandlers()
     {
 
     }
