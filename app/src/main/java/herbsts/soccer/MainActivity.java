@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getAllViews()
+    private void getAllViews() throws Exception
     {
         this.txtMessage = (TextView) findViewById(R.id.txtMessage);
         this.spPlayer = (Spinner) findViewById(R.id.spPlayer);
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //e.g. onClick
-    private void registrateEventhandlers()
+    private void registrateEventhandlers() throws Exception
     {
 
     }

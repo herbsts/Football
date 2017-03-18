@@ -11,8 +11,8 @@ public class Player implements Comparable<Player> {
     private static int idCounter = 0;
     private String name = "";
     private boolean isGoalie = false;
-    private boolean isMidFielder = false;
     private boolean isDefender = false;
+    private boolean isMidFielder = false;
     private boolean isForward = false;
     private boolean isActive = false;
 
@@ -46,20 +46,20 @@ public class Player implements Comparable<Player> {
         isGoalie = goalie;
     }
 
-    public boolean isMidFielder() {
-        return isMidFielder;
-    }
-
-    public void setMidFielder(boolean midFielder) {
-        isMidFielder = midFielder;
-    }
-
     public boolean isDefender() {
         return isDefender;
     }
 
     public void setDefender(boolean defender) {
         isDefender = defender;
+    }
+
+    public boolean isMidFielder() {
+        return isMidFielder;
+    }
+
+    public void setMidFielder(boolean midFielder) {
+        isMidFielder = midFielder;
     }
 
     public boolean isForward() {
@@ -93,9 +93,7 @@ public class Player implements Comparable<Player> {
 
     @Override
     public int compareTo(@NonNull Player p) {
-        int helpReturn = 0;
-
-        helpReturn = this.name.compareTo(p.getName());
+        int helpReturn = this.name.compareTo(p.getName());
 
         if (helpReturn == 0)
         {
@@ -103,5 +101,14 @@ public class Player implements Comparable<Player> {
         }
 
         return helpReturn;
+    }
+
+    public void setProfile(boolean _isGoalie, boolean _isDefender,boolean _isMidFielder, boolean _isForward, boolean _isActive) throws Exception
+    {
+        this.setGoalie(_isGoalie);
+        this.setDefender(_isDefender);
+        this.setMidFielder(_isMidFielder);
+        this.setForward(_isForward);
+        this.setActive(_isActive);
     }
 }

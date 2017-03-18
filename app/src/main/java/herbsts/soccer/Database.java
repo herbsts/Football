@@ -26,8 +26,29 @@ public class Database {
         return database;
     }
 
-    public void addPlayer(Player player)
+    public int addPlayer(Player player) throws Exception
     {
+        int helpReturn = 0;
 
+        if (this.tsPlayer.contains(player) == false)
+        {
+            this.tsPlayer.add(player);
+            helpReturn = 1;
+        }
+
+        return helpReturn;
+    }
+
+    public int removePlayer(Player player) throws Exception
+    {
+        int helpReturn = 0;
+
+        if (this.tsPlayer.contains(player) == true)
+        {
+            this.tsPlayer.remove(player);
+            helpReturn = 1;
+        }
+
+        return helpReturn;
     }
 }
