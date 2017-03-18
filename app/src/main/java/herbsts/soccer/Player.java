@@ -16,7 +16,7 @@ public class Player implements Comparable<Player> {
     private boolean isForward = false;
     private boolean isActive = false;
 
-    public Player(int id, String name, boolean isGoalie, boolean isMidFielder, boolean isDefender, boolean isForward, boolean isActive) {
+    public Player(String name, boolean isGoalie, boolean isMidFielder, boolean isDefender, boolean isForward, boolean isActive) {
         this.id = ++idCounter;
         this.name = name;
         this.isGoalie = isGoalie;
