@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         this.spMatch = (Spinner) findViewById(R.id.spMatch);
     }
 
+    //e.g. onClick
     private void registrateEvents()
     {
 
