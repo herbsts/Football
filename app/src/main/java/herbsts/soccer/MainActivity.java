@@ -10,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
     /*
     non-gui-attributes
      */
-
+    private Database db = null;
 
     /*
     gui-attributes
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
+            this.db = Database.newInstance();
             this.getAllViews();
         }
         catch (Exception e)
@@ -35,14 +36,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getAllViews()
+    private void getAllViews() throws Exception
     {
         this.txtMessage = (TextView) findViewById(R.id.txtMessage);
         this.spPlayer = (Spinner) findViewById(R.id.spPlayer);
         this.spMatch = (Spinner) findViewById(R.id.spMatch);
     }
 
-    private void registrateEvents()
+    //e.g. onClick
+    private void registrateEventhandlers() throws Exception
     {
 
     }

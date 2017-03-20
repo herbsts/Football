@@ -5,6 +5,8 @@ package herbsts.soccer;
  */
 
 public class Plays {
+    private int id = -1;
+    private static int idCounter = 0;
     private int idPlayer = -1;
     private int goalsShot = -1;
     private int goalsPenalty = -1;
@@ -14,6 +16,7 @@ public class Plays {
     private int nutmegs = -1;
 
     public Plays(int idPlayer, int goalsShot, int goalsPenalty, int goalsHead, int goalsHeadSnow, int goalsOwn, int nutmegs) {
+        this.id = ++idCounter;
         this.idPlayer = idPlayer;
         this.goalsShot = goalsShot;
         this.goalsPenalty = goalsPenalty;
