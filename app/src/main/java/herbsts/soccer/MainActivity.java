@@ -99,9 +99,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             try
                             {
                                 String name = input.getText().toString();
-
-                                db.addPlayer(new Player(name, false, false, false, false, true));
+                                Player player = new Player(name, false, false, false, false, true);
+                                db.addPlayer(player);
                                 fillSpinnerPlayer();
+
+                                txtMessage.setText(player + " added");
                             }
                             catch (Exception e)
                             {
@@ -124,13 +126,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     });
 
                     builder.show();
-
-                    this.txtMessage.setText("player added");
                 }
                 else
                     if (view == this.btnRemove)
                     {
-                        this.txtMessage.setText("player removed");
+                        Player player = (Player) this.spPlayer.getSelectedItem();
+                        this.db.removePlayer(player);
+                        this.fillSpinnerPlayer();           //nicht vergessen ComboBox zu refreshen
+
+                        this.txtMessage.setText(player + " removed");
                     }
         }
         catch (Exception e)
