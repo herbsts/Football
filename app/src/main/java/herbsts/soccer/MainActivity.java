@@ -66,45 +66,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view == this.btnProfile)
+        try
         {
-            this.txtMessage.setText("profile changed");
-        }
-        else
-            if (view == this.btnAdd)
+            if (view == this.btnProfile)
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("New Player");
-
-                // Set up the input
-                final EditText input = new EditText(this);
-                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-
-                // Set up the buttons
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String name = input.getText().toString();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                builder.show();
-
-
-                this.txtMessage.setText("player added");
+                this.txtMessage.setText("profile changed");
             }
             else
-                if (view == this.btnRemove)
+                if (view == this.btnAdd)
                 {
-                    this.txtMessage.setText("player removed");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("New Player");
+
+                    // Set up the input
+                    final EditText input = new EditText(this);
+                    // Specify the type of input expected; this, for example, sets the input as text
+                    input.setInputType(InputType.TYPE_CLASS_TEXT);
+                    builder.setView(input);
+
+                    // Set up the buttons
+                    builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try
+                            {
+                                String name = input.getText().toString();
+
+                                db.addPlayer(new Player(name, false, false, false, false, true));
+                            }
+                            catch (Exception e)
+                            {
+                                txtMessage.setText("error: " + e.getMessage());
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try
+                            {
+                                dialog.cancel();
+                            }
+                            catch (Exception e)
+                            {
+                                txtMessage.setText("error: " + e.getMessage());
+                            }
+                        }
+                    });
+
+                    builder.show();
+
+                    this.txtMessage.setText("player added");
                 }
+                else
+                    if (view == this.btnRemove)
+                    {
+                        this.txtMessage.setText("player removed");
+                    }
+        }
+        catch (Exception e)
+        {
+            this.txtMessage.setText("error: " + e.getMessage());
+        }
     }
 }
