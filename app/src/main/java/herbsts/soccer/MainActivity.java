@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -64,6 +65,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.btnRemove.setOnClickListener(this);
     }
 
+    private void fillSpinnerPlayer()
+    {
+        ArrayAdapter<Player> adapterPlayer = new ArrayAdapter<Player>(this, android.R.layout.simple_spinner_item, this.db.getArrayListPlayer());
+
+        this.spPlayer.setAdapter(adapterPlayer);
+    }
+
     @Override
     public void onClick(View view) {
         try
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 String name = input.getText().toString();
 
                                 db.addPlayer(new Player(name, false, false, false, false, true));
+                                fillSpinnerPlayer();
                             }
                             catch (Exception e)
                             {
