@@ -33,6 +33,11 @@ public class Database {
         return listPlayer;
     }
 
+    //Bruacht man für die ProfileActivity um den Player zu bekommen
+    public TreeSet<Player> getTsPlayer() {
+        return this.tsPlayer;
+    }
+
     public int addPlayer(Player player) throws Exception
     {
         int helpReturn = 0;

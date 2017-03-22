@@ -26,6 +26,12 @@ public class Player implements Comparable<Player> {
         this.isActive = isActive;
     }
 
+    //!!!!!ACHTUNG: Nicht für einen "normalen" Spieler verwenden, sondern nur für ceiling() vom TreeSet in ProfileActivity
+    public Player(String name)
+    {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
@@ -95,7 +101,7 @@ public class Player implements Comparable<Player> {
         return helpReturn;
     }
 
-    public void setProfile(boolean _isGoalie, boolean _isDefender,boolean _isMidFielder, boolean _isForward, boolean _isActive) throws Exception
+    public void updateProfile(boolean _isGoalie, boolean _isDefender,boolean _isMidFielder, boolean _isForward, boolean _isActive) throws Exception
     {
         this.setGoalie(_isGoalie);
         this.setDefender(_isDefender);

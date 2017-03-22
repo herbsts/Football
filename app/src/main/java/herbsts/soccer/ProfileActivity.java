@@ -8,11 +8,14 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import static herbsts.soccer.Position.*;
+
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     /*
     non-gui-attributes
      */
     private Database db = null;
+    private String playerName = null;
 
     /*
     gui-attributes
@@ -28,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_profile);
             this.db = Database.newInstance();
+            this.setContent();
             this.getAllViews();
             this.registrateEventhandlers();
         }
@@ -36,6 +40,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
             toast.show();
         }
+    }
+
+    //Setzt die übergebenen Parameter vom Intent
+    private void setContent()
+    {
+
     }
 
     private void getAllViews() throws Exception
@@ -56,7 +66,31 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         {
             if (view == this.btnSave)
             {
+                boolean isGoalie = false, isDefender = false, isMidfielder = false, isForward = false, isActive = false;
+                Position position = (Position) this.spPosition.getSelectedItem();
 
+                //Setzt die jeweilige ausgewählte Position auf true
+                switch (position)
+                {
+                    case GOALIE:
+                        isGoalie = true;
+                        break;
+                    case DEFENDER:
+                        isDefender = true;
+                        break;
+                    case MIDFIELDER:
+                        isMidfielder = true;
+                        break;
+                    case FORWARD:
+                        isForward = true;
+                        break;
+                }
+
+                //aktiv nicht vergessen zu prüfen
+                isActive = this.chBoxActive.isChecked();
+
+                Player player = this.db.getTsPlayer().ceiling(new Player(this.playerName));
+                player.updateProfile(isGoalie, isDefender, isMidfielder, isForward, isActive);          //updaten des Profiles des Spielers
             }
         }
         catch (Exception e)
