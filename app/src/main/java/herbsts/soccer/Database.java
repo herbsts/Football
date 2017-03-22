@@ -10,6 +10,7 @@ import java.util.TreeSet;
 public class Database {
     private static Database database = null;
     private TreeSet<Player> tsPlayer = null;
+    private TreeSet<Match> tsMatches = null;
 
     //Muss private sein, weil es darf ja nur von newInstance() aufgerufen werden, wegen Singleton
     private Database()
@@ -33,7 +34,7 @@ public class Database {
         return listPlayer;
     }
 
-    //Bruacht man für die ProfileActivity um den Player zu bekommen
+    //Braucht man für die ProfileActivity um den Player zu bekommen
     public TreeSet<Player> getTsPlayer() {
         return this.tsPlayer;
     }
@@ -58,6 +59,32 @@ public class Database {
         if (this.tsPlayer.contains(player) == true)
         {
             this.tsPlayer.remove(player);
+            helpReturn = 1;
+        }
+
+        return helpReturn;
+    }
+
+    public int addMatch(Match match) throws Exception
+    {
+        int helpReturn = 0;
+
+        if (this.tsMatches.contains(match) == false)
+        {
+            this.tsMatches.add(match);
+            helpReturn = 1;
+        }
+
+        return helpReturn;
+    }
+
+    public int removeMatch(Match match) throws Exception
+    {
+        int helpReturn = 0;
+
+        if (this.tsMatches.contains(match) == true)
+        {
+            this.tsMatches.remove(match);
             helpReturn = 1;
         }
 
