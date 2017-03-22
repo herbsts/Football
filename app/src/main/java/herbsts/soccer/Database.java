@@ -1,5 +1,6 @@
 package herbsts.soccer;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
@@ -24,6 +25,12 @@ public class Database {
         }
 
         return database;
+    }
+
+    //ArrayList returnen wegen ComboBox
+    public ArrayList<Player> getArrayListPlayer() {
+        ArrayList<Player> listPlayer = new ArrayList<>(tsPlayer);
+        return listPlayer;
     }
 
     public int addPlayer(Player player) throws Exception

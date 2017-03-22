@@ -80,15 +80,7 @@ public class Player implements Comparable<Player> {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", isGoalie=" + isGoalie +
-                ", isMidFielder=" + isMidFielder +
-                ", isDefender=" + isDefender +
-                ", isForward=" + isForward +
-                ", isActive=" + isActive +
-                '}';
+        return this.name;
     }
 
     @Override
