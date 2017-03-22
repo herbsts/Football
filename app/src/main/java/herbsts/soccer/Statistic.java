@@ -7,7 +7,7 @@ package herbsts.soccer;
 public class Statistic {
     private int id = -1;
     private static int idCounter = 0;
-    private Match match;
+    private Match match = null;
     private int goalsShot = -1;
     private int goalsPenalty = -1;
     private int goalsHead = -1;
@@ -26,11 +26,11 @@ public class Statistic {
         this.nutmegs = nutmegs;
     }
 
-    public Match getIdPlayer() {
+    public Match getMatch() {
         return match;
     }
 
-    public void setIdPlayer(Match match) {
+    public void setMatch(Match match) {
         this.match = match;
     }
 
