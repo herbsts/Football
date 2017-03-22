@@ -2,6 +2,8 @@ package herbsts.soccer;
 
 import android.support.annotation.NonNull;
 
+import java.util.TreeSet;
+
 /**
  * Created by Stefan Herbst on 16.03.2017.
  */
@@ -15,6 +17,7 @@ public class Player implements Comparable<Player> {
     private boolean isMidFielder = false;
     private boolean isForward = false;
     private boolean isActive = false;
+    private TreeSet<Statistic> tsStatistic = null;
 
     public Player(String name, boolean isGoalie, boolean isMidFielder, boolean isDefender, boolean isForward, boolean isActive) {
         this.id = ++idCounter;
@@ -24,6 +27,7 @@ public class Player implements Comparable<Player> {
         this.isDefender = isDefender;
         this.isForward = isForward;
         this.isActive = isActive;
+        this.tsStatistic = new TreeSet<>();
     }
 
     //!!!!!ACHTUNG: Nicht für einen "normalen" Spieler verwenden, sondern nur für ceiling() vom TreeSet in ProfileActivity
