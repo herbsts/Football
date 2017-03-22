@@ -93,11 +93,6 @@ public class Player implements Comparable<Player> {
     public int compareTo(@NonNull Player p) {
         int helpReturn = this.name.compareTo(p.getName());
 
-        if (helpReturn == 0)
-        {
-            helpReturn = this.id - p.getId();
-        }
-
         return helpReturn;
     }
 
