@@ -3,8 +3,8 @@
     <string name="soccer_gmx_at">exampleemail</string>
     <string-array name="position">
         <item>Defender</item>
-        <item>Goalkeeper</item>
+        <item>Forward</item>
+        <item>Goalie</item>
         <item>Midfielder</item>
-        <item>Striker</item>
     </string-array>
 </resources>
