@@ -98,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 case "Defender":
                                     isDefender = true;
                                     break;
-                                case "Mitfielder":
+                                case "Midfielder":
                                     isMidfielder = true;
                                     break;
                                 case "Forward":
