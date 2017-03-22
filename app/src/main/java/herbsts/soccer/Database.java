@@ -3,9 +3,6 @@ package herbsts.soccer;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-/**
- * Created by Lorenz on 18.03.2017.
- */
 
 public class Database {
     private static Database database = null;
@@ -15,7 +12,7 @@ public class Database {
     //Muss private sein, weil es darf ja nur von newInstance() aufgerufen werden, wegen Singleton
     private Database()
     {
-        this.tsPlayer = new TreeSet<Player>();
+        this.tsPlayer = new TreeSet<>();
     }
 
     public static Database newInstance()
@@ -43,7 +40,7 @@ public class Database {
     {
         int helpReturn = 0;
 
-        if (this.tsPlayer.contains(player) == false)
+        if (!this.tsPlayer.contains(player))
         {
             this.tsPlayer.add(player);
             helpReturn = 1;
@@ -56,7 +53,7 @@ public class Database {
     {
         int helpReturn = 0;
 
-        if (this.tsPlayer.contains(player) == true)
+        if (this.tsPlayer.contains(player))
         {
             this.tsPlayer.remove(player);
             helpReturn = 1;
@@ -65,11 +62,21 @@ public class Database {
         return helpReturn;
     }
 
+    public ArrayList<Match> getArrayListMatches() {
+        ArrayList<Match> listMatches = new ArrayList<>(tsMatches);
+        return listMatches;
+    }
+
+    //Braucht man für die ProfileActivity um den Player zu bekommen
+    public TreeSet<Match> getTsMatches() {
+        return this.tsMatches;
+    }
+
     public int addMatch(Match match) throws Exception
     {
         int helpReturn = 0;
 
-        if (this.tsMatches.contains(match) == false)
+        if (!this.tsMatches.contains(match))
         {
             this.tsMatches.add(match);
             helpReturn = 1;
@@ -82,7 +89,7 @@ public class Database {
     {
         int helpReturn = 0;
 
-        if (this.tsMatches.contains(match) == true)
+        if (this.tsMatches.contains(match))
         {
             this.tsMatches.remove(match);
             helpReturn = 1;
