@@ -1,5 +1,6 @@
 package herbsts.soccer;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -66,11 +67,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 {
                     if (this.db.getTsPlayer().contains(new Player(this.txtName.getText().toString())) == false)
                     {
+                        /*
+                        Hinzufügen des neuen Players
+                         */
                         int helpReturn;
 
                         String name = this.txtName.getText().toString();
-                        Player player = new Player(name, false, false, false, false, true);
-                        helpReturn = db.addPlayer(player);
+                        Player newPlayer = new Player(name, false, false, false, false, true);
+                        helpReturn = db.addPlayer(newPlayer);
 
                         //Wenn Player nicht hinzugefügt wurde
                         if (helpReturn != 1)
@@ -81,8 +85,35 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         else
                         {
                             /*
+                            Position beim Player updaten, weil man die Position beim neuen Spieler ja auswählen kann
+                             */
+                            boolean isGoalie = false, isDefender = false, isMidfielder = false, isForward = false;
+                            String position = this.spPosition.getSelectedItem().toString();
+
+                            switch (position)
+                            {
+                                case "Goalie":
+                                    isGoalie = true;
+                                    break;
+                                case "Defender":
+                                    isDefender = true;
+                                    break;
+                                case "Mitfielder":
+                                    isMidfielder = true;
+                                    break;
+                                case "Forward":
+                                    isForward = true;
+                                    break;
+                            }
+
+                            newPlayer.updateProfile(isGoalie, isDefender, isMidfielder, isForward, true);
+
+                            /*
                             normales Login
                              */
+                            //Intent intent = new Intent(this, blabla.class);
+                            //intent.putExtra("intentPlayerName", name);
+                            //startActivity(intent);
                         }
                     }
                     else
@@ -90,6 +121,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         /*
                         normales Login ohne neuen Player hinzufügen
                          */
+
                     }
                 }
                 else
@@ -104,5 +136,29 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
             toast.show();
         }
+    }
+
+    //Returnt die Position als Datentyp Position (=Enum)
+    private Position getPosition(String posString)
+    {
+        Position pos = null;
+
+        switch (posString)
+        {
+            case "Goalie":
+                pos = Position.GOALIE;
+                break;
+            case "Defender":
+                pos = Position.DEFENDER;
+                break;
+            case "Mitfielder":
+                pos = Position.MIDFIELDER;
+                break;
+            case "Forward":
+                pos = Position.FORWARD;
+                break;
+        }
+
+        return pos;
     }
 }
