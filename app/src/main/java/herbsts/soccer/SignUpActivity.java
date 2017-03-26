@@ -70,14 +70,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         /*
                         Hinzufügen des neuen Players
                          */
-                        int helpReturn;
+                        boolean helpReturn;
 
                         String name = this.txtName.getText().toString();
                         Player newPlayer = new Player(name, false, false, false, false, true);
                         helpReturn = db.addPlayer(newPlayer);
 
                         //Wenn Player nicht hinzugefügt wurde
-                        if (helpReturn != 1)
+                        if (!helpReturn)
                         {
                             Toast toast = Toast.makeText(getApplicationContext(), "Player not added. May it already exists.", Toast.LENGTH_LONG);
                             toast.show();

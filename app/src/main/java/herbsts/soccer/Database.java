@@ -35,14 +35,14 @@ public class Database {
         return this.tsPlayer;
     }
 
-    public void addPlayer(Player player) throws Exception
+    public boolean addPlayer(Player player) throws Exception
     {
-        this.tsPlayer.add(player);
+        return this.tsPlayer.add(player);
     }
 
-    public void removePlayer(Player player) throws Exception
+    public boolean removePlayer(Player player) throws Exception
     {
-        this.tsPlayer.remove(player);
+        return this.tsPlayer.remove(player);
     }
 
     public ArrayList<Match> getArrayListMatches() {
@@ -54,13 +54,13 @@ public class Database {
         return this.tsMatches;
     }
 
-    public void addMatch(Match match) throws Exception
+    public boolean addMatch(Match match) throws Exception
     {
-        this.tsMatches.add(match);
+        return this.tsMatches.add(match);
     }
 
-    public void removeMatch(Match match) throws Exception
+    public boolean removeMatch(Match match) throws Exception
     {
-        this.tsMatches.remove(match);
+        return this.tsMatches.remove(match);
     }
 }
