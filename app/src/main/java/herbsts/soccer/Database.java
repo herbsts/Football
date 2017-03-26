@@ -27,8 +27,7 @@ public class Database {
 
     //ArrayList returnen wegen ComboBox
     public ArrayList<Player> getArrayListPlayer() {
-        ArrayList<Player> listPlayer = new ArrayList<>(tsPlayer);
-        return listPlayer;
+        return new ArrayList<>(tsPlayer);
     }
 
     //Braucht man für die ProfileActivity um den Player zu bekommen
@@ -36,35 +35,18 @@ public class Database {
         return this.tsPlayer;
     }
 
-    public int addPlayer(Player player) throws Exception
+    public void addPlayer(Player player) throws Exception
     {
-        int helpReturn = 0;
-
-        if (!this.tsPlayer.contains(player))
-        {
-            this.tsPlayer.add(player);
-            helpReturn = 1;
-        }
-
-        return helpReturn;
+        this.tsPlayer.add(player);
     }
 
-    public int removePlayer(Player player) throws Exception
+    public void removePlayer(Player player) throws Exception
     {
-        int helpReturn = 0;
-
-        if (this.tsPlayer.contains(player))
-        {
-            this.tsPlayer.remove(player);
-            helpReturn = 1;
-        }
-
-        return helpReturn;
+        this.tsPlayer.remove(player);
     }
 
     public ArrayList<Match> getArrayListMatches() {
-        ArrayList<Match> listMatches = new ArrayList<>(tsMatches);
-        return listMatches;
+        return new ArrayList<>(tsMatches);
     }
 
     //Braucht man für die ProfileActivity um den Player zu bekommen
@@ -72,29 +54,13 @@ public class Database {
         return this.tsMatches;
     }
 
-    public int addMatch(Match match) throws Exception
+    public void addMatch(Match match) throws Exception
     {
-        int helpReturn = 0;
-
-        if (!this.tsMatches.contains(match))
-        {
-            this.tsMatches.add(match);
-            helpReturn = 1;
-        }
-
-        return helpReturn;
+        this.tsMatches.add(match);
     }
 
-    public int removeMatch(Match match) throws Exception
+    public void removeMatch(Match match) throws Exception
     {
-        int helpReturn = 0;
-
-        if (this.tsMatches.contains(match))
-        {
-            this.tsMatches.remove(match);
-            helpReturn = 1;
-        }
-
-        return helpReturn;
+        this.tsMatches.remove(match);
     }
 }
