@@ -95,9 +95,7 @@ public class Player implements Comparable<Player> {
 
     @Override
     public int compareTo(@NonNull Player p) {
-        int helpReturn = this.name.compareTo(p.getName());
-
-        return helpReturn;
+        return this.name.compareTo(p.getName());
     }
 
     public void updateProfile(boolean _isGoalie, boolean _isDefender,boolean _isMidFielder, boolean _isForward, boolean _isActive) throws Exception
