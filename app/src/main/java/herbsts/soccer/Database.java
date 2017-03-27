@@ -35,6 +35,7 @@ public class Database {
         return this.tsPlayer;
     }
 
+    //***new add***
     public boolean addPlayer(Player player) throws Exception
     {
         return this.tsPlayer.add(player);
