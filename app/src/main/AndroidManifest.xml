@@ -18,12 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainGui" />
         <activity android:name=".ProfileActivity" />
-        <activity
-            android:name="layout.navigation.mainmenuwithnavigation"
-            android:label="@string/title_activity_mainmenuwithnavigation"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="layout.main.MainGui"></activity>
     </application>
 
 </manifest>

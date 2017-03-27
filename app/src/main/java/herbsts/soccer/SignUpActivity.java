@@ -111,9 +111,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             /*
                             normales Login
                              */
-                            //Intent intent = new Intent(this, activity_main_gui.class);
-                            //intent.putExtra("intentPlayerName", name);
-                            //startActivity(intent);
+                            Intent intent = new Intent(this, MainGui.class);
+                            intent.putExtra("intentPlayerName", name);
+                            startActivity(intent);
                         }
                     }
                     else
@@ -122,9 +122,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         normales Login ohne neuen Player hinzufügen
                          */
                         String playerName = this.txtName.getText().toString();
-                        //Intent intent = new Intent(this, activity_main_gui.class);
-                        //intent.putExtra("intentPlayerName", playerName);
-                        //startActivity(intent);
+                        Intent intent = new Intent(this, MainGui.class);
+                        intent.putExtra("intentPlayerName", playerName);
+                        startActivity(intent);
                     }
                 }
                 else
