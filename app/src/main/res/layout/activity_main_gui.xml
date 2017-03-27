@@ -8,34 +8,57 @@
     tools:context=".MainGui">
 
     <ImageButton
-        android:layout_width="191dp"
-        android:layout_height="255dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:srcCompat="@drawable/statistics"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="1dp"
-        android:id="@+id/imgbtnstatistics" />
+        android:id="@+id/imgbtnstatistics"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/imgbtncalendar"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintRight_toRightOf="@+id/imgbtncalendar"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:layout_width="191dp"
-        android:layout_height="255dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:srcCompat="@drawable/profile"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="193dp"
-        android:id="@+id/imgbtnprofile" />
+        android:id="@+id/imgbtnprofile"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/imgbtncalendar"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/imgbtncalendar" />
 
     <ImageButton
         android:layout_width="193dp"
-        android:layout_height="256dp"
+        android:layout_height="0dp"
         app:srcCompat="@drawable/calendar"
-        tools:layout_editor_absoluteY="255dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:id="@+id/imgbtncalendar" />
+        android:id="@+id/imgbtncalendar"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgbtnteam" />
 
     <ImageButton
-        android:layout_width="193dp"
+        android:layout_width="0dp"
         android:layout_height="259dp"
         app:srcCompat="@drawable/position"
-        tools:layout_editor_absoluteY="255dp"
-        tools:layout_editor_absoluteX="192dp"
-        android:id="@+id/imgbtnteam" />
+        android:id="@+id/imgbtnteam"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="255dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/imgbtnstatistics" />
 </android.support.constraint.ConstraintLayout>
