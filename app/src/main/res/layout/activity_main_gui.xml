@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_gui"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="layout.main.MainGui">
+
+    <ImageButton
+        android:layout_width="191dp"
+        android:layout_height="255dp"
+        app:srcCompat="@drawable/statistics"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="1dp"
+        android:id="@+id/imgbtnstatistics" />
+
+    <ImageButton
+        android:layout_width="191dp"
+        android:layout_height="255dp"
+        app:srcCompat="@drawable/profile"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="193dp"
+        android:id="@+id/imgbtnprofile" />
+
+    <ImageButton
+        android:layout_width="193dp"
+        android:layout_height="256dp"
+        app:srcCompat="@drawable/calendar"
+        tools:layout_editor_absoluteY="255dp"
+        tools:layout_editor_absoluteX="0dp"
+        android:id="@+id/imgbtncalendar" />
+
+    <ImageButton
+        android:layout_width="193dp"
+        android:layout_height="259dp"
+        app:srcCompat="@drawable/position"
+        tools:layout_editor_absoluteY="255dp"
+        tools:layout_editor_absoluteX="192dp"
+        android:id="@+id/imgbtnteam" />
+</android.support.constraint.ConstraintLayout>
