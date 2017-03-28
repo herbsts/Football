@@ -42,15 +42,4 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/chBoxActive" />
 
-    <Button
-        android:id="@+id/btnDeletePlayer"
-        android:layout_width="160dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Delete Player"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="467dp"
-        tools:layout_editor_absoluteX="216dp" />
 </android.support.constraint.ConstraintLayout>

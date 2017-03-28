@@ -1,8 +1,11 @@
 package herbsts.soccer;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -34,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             this.setContent();
             this.getAllViews();
             this.registrateEventhandlers();
+            this.fillSpinnerPositions();
         }
         catch (Exception e)
         {
@@ -45,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     //Setzt die übergebenen Parameter vom Intent
     private void setContent()
     {
-
+        this.playerName = getIntent().getStringExtra("intentPlayerName").toString();
     }
 
     private void getAllViews() throws Exception
@@ -58,6 +62,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void registrateEventhandlers() throws Exception
     {
         this.btnSave.setOnClickListener(this);
+    }
+
+    private void fillSpinnerPositions() throws Exception
+    {
+        //Holt die Werte des Enums und füllt den Spinner
+        ArrayAdapter<Position> adapterPositions = new ArrayAdapter<Position>(this, android.R.layout.simple_spinner_item, Position.values());
+        this.spPosition.setAdapter(adapterPositions);
     }
 
     @Override

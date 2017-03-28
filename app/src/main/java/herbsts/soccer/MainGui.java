@@ -34,7 +34,7 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
             setContentView(R.layout.activity_main_gui);
 
             //Namen aus Intent holen
-            this.playerName = getIntent().getStringExtra("intentPlayerName").toString();
+            this.setContent();
             //Titel setzen
             this.setTitle(this.playerName);
 
@@ -46,6 +46,11 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
             Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
             toast.show();
         }
+    }
+
+    private void setContent() throws Exception
+    {
+        this.playerName = getIntent().getStringExtra("intentPlayerName").toString();
     }
 
     private void getAllViews() throws Exception
@@ -69,6 +74,7 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
             if (view == this.btnProfile)
             {
                 Intent intent = new Intent(this, ProfileActivity.class);
+                intent.putExtra("intentPlayerName", this.playerName);
                 startActivity(intent);
             }
         }
