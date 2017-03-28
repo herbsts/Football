@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void setContent() throws Exception
     {
         this.playerName = getIntent().getStringExtra("intentPlayerName").toString();
+        this.setTitle(this.playerName);
 
         Player player = this.db.getSpecifyPlayer(new Player(playerName));
 
