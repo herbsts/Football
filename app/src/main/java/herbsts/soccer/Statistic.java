@@ -4,10 +4,10 @@ package herbsts.soccer;
  * Created by Stefan Herbst on 16.03.2017.
  */
 
-public class Plays {
+public class Statistic {
     private int id = -1;
     private static int idCounter = 0;
-    private int idPlayer = -1;
+    private Match match = null;
     private int goalsShot = -1;
     private int goalsPenalty = -1;
     private int goalsHead = -1;
@@ -15,9 +15,9 @@ public class Plays {
     private int goalsOwn = -1;
     private int nutmegs = -1;
 
-    public Plays(int idPlayer, int goalsShot, int goalsPenalty, int goalsHead, int goalsHeadSnow, int goalsOwn, int nutmegs) {
+    public Statistic(Match match, int goalsShot, int goalsPenalty, int goalsHead, int goalsHeadSnow, int goalsOwn, int nutmegs) {
         this.id = ++idCounter;
-        this.idPlayer = idPlayer;
+        this.match = match;
         this.goalsShot = goalsShot;
         this.goalsPenalty = goalsPenalty;
         this.goalsHead = goalsHead;
@@ -26,12 +26,12 @@ public class Plays {
         this.nutmegs = nutmegs;
     }
 
-    public int getIdPlayer() {
-        return idPlayer;
+    public Match getMatch() {
+        return match;
     }
 
-    public void setIdPlayer(int idPlayer) {
-        this.idPlayer = idPlayer;
+    public void setMatch(Match match) {
+        this.match = match;
     }
 
     public int getGoalsShot() {
@@ -84,8 +84,8 @@ public class Plays {
 
     @Override
     public String toString() {
-        return "Plays{" +
-                "idPlayer=" + idPlayer +
+        return "Statistic{" +
+                "match=" + match +
                 ", goalsShot=" + goalsShot +
                 ", goalsPenalty=" + goalsPenalty +
                 ", goalsHead=" + goalsHead +

@@ -3,18 +3,16 @@ package herbsts.soccer;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-/**
- * Created by Lorenz on 18.03.2017.
- */
 
 public class Database {
     private static Database database = null;
     private TreeSet<Player> tsPlayer = null;
+    private TreeSet<Match> tsMatches = null;
 
     //Muss private sein, weil es darf ja nur von newInstance() aufgerufen werden, wegen Singleton
     private Database()
     {
-        this.tsPlayer = new TreeSet<Player>();
+        this.tsPlayer = new TreeSet<>();
     }
 
     public static Database newInstance()
@@ -29,33 +27,56 @@ public class Database {
 
     //ArrayList returnen wegen ComboBox
     public ArrayList<Player> getArrayListPlayer() {
-        ArrayList<Player> listPlayer = new ArrayList<>(tsPlayer);
-        return listPlayer;
+        return new ArrayList<>(tsPlayer);
     }
 
-    public int addPlayer(Player player) throws Exception
-    {
-        int helpReturn = 0;
-
-        if (this.tsPlayer.contains(player) == false)
-        {
-            this.tsPlayer.add(player);
-            helpReturn = 1;
-        }
-
-        return helpReturn;
+    //Braucht man für die ProfileActivity um den Player zu bekommen
+    public TreeSet<Player> getTsPlayer() {
+        return this.tsPlayer;
     }
 
-    public int removePlayer(Player player) throws Exception
+    //***new add***
+    public boolean addPlayer(Player player) throws Exception
     {
-        int helpReturn = 0;
+        return this.tsPlayer.add(player);
+    }
 
-        if (this.tsPlayer.contains(player) == true)
+    /*public boolean removePlayer(Player player) throws Exception
+    {
+        return this.tsPlayer.remove(player);
+    }*/
+
+    //Braucht man bei ProfileActivity, um den Spinner mit der jeweiligen Position des Players setzen. Man liefert zwar einen Player als Parameter
+    //aber dieser ist nur ein Phantom mit dem gleichen Namen und anhand der ceiling-Methode (vergleicht ja mit der compareTo() ) bekommt man
+    //den Player mit den richtigen Werten
+    public Player getSpecifyPlayer(Player player) throws Exception
+    {
+        Player returnPlayer = null;
+
+        if (this.tsPlayer.contains(player))
         {
-            this.tsPlayer.remove(player);
-            helpReturn = 1;
+            returnPlayer = this.tsPlayer.ceiling(player);
         }
 
-        return helpReturn;
+        return returnPlayer;
+    }
+
+    public ArrayList<Match> getArrayListMatches() {
+        return new ArrayList<>(tsMatches);
+    }
+
+    //Braucht man für die ProfileActivity um den Player zu bekommen
+    public TreeSet<Match> getTsMatches() {
+        return this.tsMatches;
+    }
+
+    public boolean addMatch(Match match) throws Exception
+    {
+        return this.tsMatches.add(match);
+    }
+
+    public boolean removeMatch(Match match) throws Exception
+    {
+        return this.tsMatches.remove(match);
     }
 }

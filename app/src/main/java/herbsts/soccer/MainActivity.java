@@ -2,6 +2,8 @@ package herbsts.soccer;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (view == this.btnRemove)
                     {
                         Player player = (Player) this.spPlayer.getSelectedItem();
-                        this.db.removePlayer(player);
+                        //this.db.removePlayer(player);
                         this.fillSpinnerPlayer();           //nicht vergessen ComboBox zu refreshen
 
                         this.txtMessage.setText(player + " removed");

@@ -3,8 +3,14 @@
     <string name="soccer_gmx_at">exampleemail</string>
     <string-array name="position">
         <item>Defender</item>
-        <item>Goalkeeper</item>
+        <item>Forward</item>
+        <item>Goalie</item>
         <item>Midfielder</item>
-        <item>Striker</item>
     </string-array>
+    <string name="title_activity_mainmenuwithnavigation">mainmenuwithnavigation</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

@@ -2,6 +2,8 @@ package herbsts.soccer;
 
 import android.support.annotation.NonNull;
 
+import java.util.TreeSet;
+
 /**
  * Created by Stefan Herbst on 16.03.2017.
  */
@@ -15,6 +17,7 @@ public class Player implements Comparable<Player> {
     private boolean isMidFielder = false;
     private boolean isForward = false;
     private boolean isActive = false;
+    private TreeSet<Statistic> tsStatistic = null;
 
     public Player(String name, boolean isGoalie, boolean isMidFielder, boolean isDefender, boolean isForward, boolean isActive) {
         this.id = ++idCounter;
@@ -24,6 +27,13 @@ public class Player implements Comparable<Player> {
         this.isDefender = isDefender;
         this.isForward = isForward;
         this.isActive = isActive;
+        this.tsStatistic = new TreeSet<>();
+    }
+
+    //!!!!!ACHTUNG: Nicht für einen "normalen" Spieler verwenden, sondern nur für ceiling() vom TreeSet in ProfileActivity
+    public Player(String name)
+    {
+        this.name = name;
     }
 
     public int getId() {
@@ -85,22 +95,42 @@ public class Player implements Comparable<Player> {
 
     @Override
     public int compareTo(@NonNull Player p) {
-        int helpReturn = this.name.compareTo(p.getName());
-
-        if (helpReturn == 0)
-        {
-            helpReturn = this.id - p.getId();
-        }
-
-        return helpReturn;
+        return this.name.compareTo(p.getName());
     }
 
-    public void setProfile(boolean _isGoalie, boolean _isDefender,boolean _isMidFielder, boolean _isForward, boolean _isActive) throws Exception
+    public void updateProfile(boolean _isGoalie, boolean _isDefender,boolean _isMidFielder, boolean _isForward, boolean _isActive) throws Exception
     {
         this.setGoalie(_isGoalie);
         this.setDefender(_isDefender);
         this.setMidFielder(_isMidFielder);
         this.setForward(_isForward);
         this.setActive(_isActive);
+    }
+
+    public Position getSelectedPosition()
+    {
+        Position pos = null;
+
+        if (isGoalie())
+        {
+            pos = Position.GOALIE;
+        }
+        else
+            if (isDefender())
+            {
+                pos = Position.DEFENDER;
+            }
+            else
+                if (isMidFielder())
+                {
+                    pos = Position.MIDFIELDER;
+                }
+                else
+                    if (isForward())
+                    {
+                        pos = Position.FORWARD;
+                    }
+
+        return pos;
     }
 }
