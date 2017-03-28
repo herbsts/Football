@@ -41,9 +41,24 @@ public class Database {
         return this.tsPlayer.add(player);
     }
 
-    public boolean removePlayer(Player player) throws Exception
+    /*public boolean removePlayer(Player player) throws Exception
     {
         return this.tsPlayer.remove(player);
+    }*/
+
+    //Braucht man bei ProfileActivity, um den Spinner mit der jeweiligen Position des Players setzen. Man liefert zwar einen Player als Parameter
+    //aber dieser ist nur ein Phantom mit dem gleichen Namen und anhand der ceiling-Methode (vergleicht ja mit der compareTo() ) bekommt man
+    //den Player mit den richtigen Werten
+    public Player getSpecifyPlayer(Player player) throws Exception
+    {
+        Player returnPlayer = null;
+
+        if (this.tsPlayer.contains(player))
+        {
+            returnPlayer = this.tsPlayer.ceiling(player);
+        }
+
+        return returnPlayer;
     }
 
     public ArrayList<Match> getArrayListMatches() {

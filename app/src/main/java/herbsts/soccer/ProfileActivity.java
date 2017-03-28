@@ -34,10 +34,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_profile);
             this.db = Database.newInstance();
-            this.setContent();
             this.getAllViews();
             this.registrateEventhandlers();
             this.fillSpinnerPositions();
+            this.setContent();
         }
         catch (Exception e)
         {
@@ -46,10 +46,24 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    //Setzt die übergebenen Parameter vom Intent
-    private void setContent()
+    //Setzt die übergebenen Parameter vom Intent und die jeweiligen Werte vom Player (Position vom Spinner und ob er 'active' ist)
+    private void setContent() throws Exception
     {
         this.playerName = getIntent().getStringExtra("intentPlayerName").toString();
+
+        Player player = this.db.getSpecifyPlayer(new Player(playerName));
+
+        //Position des Players herausfinden
+        Position pos = player.getSelectedPosition();
+
+        ArrayAdapter<Position> myAdap = (ArrayAdapter) this.spPosition.getAdapter(); //cast to an ArrayAdapter
+        int spinnerPosition = myAdap.getPosition(pos);
+
+        //set the default according to value
+        this.spPosition.setSelection(spinnerPosition);
+
+        boolean isActive = player.isActive();
+        this.chBoxActive.setChecked(isActive);
     }
 
     private void getAllViews() throws Exception
@@ -102,11 +116,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 Player player = this.db.getTsPlayer().ceiling(new Player(this.playerName));
                 player.updateProfile(isGoalie, isDefender, isMidfielder, isForward, isActive);          //updaten des Profiles des Spielers
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Player succesfully saved.", Toast.LENGTH_LONG);
+                toast.show();
+
+                // !!! Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
+                this.finish();
             }
         }
         catch (Exception e)
         {
-            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), "Player not saved. Error: " + e.getMessage(), Toast.LENGTH_LONG);
             toast.show();
         }
     }

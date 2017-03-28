@@ -106,4 +106,31 @@ public class Player implements Comparable<Player> {
         this.setForward(_isForward);
         this.setActive(_isActive);
     }
+
+    public Position getSelectedPosition()
+    {
+        Position pos = null;
+
+        if (isGoalie())
+        {
+            pos = Position.GOALIE;
+        }
+        else
+            if (isDefender())
+            {
+                pos = Position.DEFENDER;
+            }
+            else
+                if (isMidFielder())
+                {
+                    pos = Position.MIDFIELDER;
+                }
+                else
+                    if (isForward())
+                    {
+                        pos = Position.FORWARD;
+                    }
+
+        return pos;
+    }
 }

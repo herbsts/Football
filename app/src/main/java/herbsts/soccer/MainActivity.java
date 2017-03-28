@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (view == this.btnRemove)
                     {
                         Player player = (Player) this.spPlayer.getSelectedItem();
-                        this.db.removePlayer(player);
+                        //this.db.removePlayer(player);
                         this.fillSpinnerPlayer();           //nicht vergessen ComboBox zu refreshen
 
                         this.txtMessage.setText(player + " removed");
