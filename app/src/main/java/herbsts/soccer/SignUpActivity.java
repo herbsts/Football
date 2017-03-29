@@ -35,6 +35,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             this.db = Database.newInstance();
             this.getAllViews();
             this.registrateEventhandlers();
+            fillSpinnerPositions();
+
         }
         catch (Exception e)
         {
@@ -56,6 +58,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         this.btnAddPlayer.setOnClickListener(this);
     }
 
+    private void fillSpinnerPositions() throws Exception
+    {
+        //Holt die Werte des Enums und füllt den Spinner
+        ArrayAdapter<Position> adapterPositions = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Position.values());
+        this.spPosition.setAdapter(adapterPositions);
+    }
+
     @Override
     public void onClick(View view) {
         try
@@ -65,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 //Überprüfung, dass ein Name eingegeben wurde
                 if (this.txtName.getText() != null)
                 {
-                    if (this.db.getTsPlayer().contains(new Player(this.txtName.getText().toString())) == false)
+                    if (!this.db.getTsPlayer().contains(new Player(this.txtName.getText().toString())))
                     {
                         /*
                         Hinzufügen des neuen Players

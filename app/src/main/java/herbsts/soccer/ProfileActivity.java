@@ -50,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void setContent() throws Exception
     {
         this.playerName = getIntent().getStringExtra("intentPlayerName").toString();
-
+        this.setTitle(this.playerName);
         Player player = this.db.getSpecifyPlayer(new Player(playerName));
 
         //Position des Players herausfinden
@@ -81,7 +81,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void fillSpinnerPositions() throws Exception
     {
         //Holt die Werte des Enums und füllt den Spinner
-        ArrayAdapter<Position> adapterPositions = new ArrayAdapter<Position>(this, android.R.layout.simple_spinner_item, Position.values());
+        ArrayAdapter<Position> adapterPositions = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Position.values());
         this.spPosition.setAdapter(adapterPositions);
     }
 
