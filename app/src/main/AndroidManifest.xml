@@ -20,6 +20,10 @@
         </activity>
         <activity android:name=".MainGui" />
         <activity android:name=".ProfileActivity" />
+        <activity
+            android:name=".MainActivityGUIForFinalVersion"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".impressumgui"></activity>
     </application>
 
 </manifest>
