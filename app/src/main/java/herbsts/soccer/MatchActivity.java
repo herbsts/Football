@@ -63,7 +63,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                 Date date = c.getTime();
                 Toast toast = Toast.makeText(getApplicationContext(), "Match date: "+date.toString(), Toast.LENGTH_LONG);
                 toast.show();
-                //works!
+
                 // !!! Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
                 //this.finish();
             }
