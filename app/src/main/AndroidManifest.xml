@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
         <activity android:name=".SignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,10 +19,7 @@
         </activity>
         <activity android:name=".MainGui" />
         <activity android:name=".ProfileActivity" />
-        <activity
-            android:name=".MainActivityGUIForFinalVersion"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".impressumgui"></activity>
+        <activity android:name=".MatchActivity"></activity>
     </application>
 
 </manifest>

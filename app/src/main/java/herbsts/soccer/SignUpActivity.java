@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import static herbsts.soccer.R.id.txtMessage;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     /*
