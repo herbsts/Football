@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".MainGui" />
         <activity android:name=".ProfileActivity" />
+        <activity android:name=".MatchActivity"></activity>
     </application>
 
 </manifest>
