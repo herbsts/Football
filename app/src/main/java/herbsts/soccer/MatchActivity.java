@@ -92,7 +92,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             textView.setBackgroundColor(Color.WHITE);
             textView.setText(player.getName());
 
-            tr.addView(textView);
+            tr.addView(textView);           //test-comment
 
             this.tblPlayer.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
