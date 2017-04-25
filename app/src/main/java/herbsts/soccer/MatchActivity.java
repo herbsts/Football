@@ -1,27 +1,18 @@
 package herbsts.soccer;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
-
-public class MatchActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match);
-=======
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.CancellationException;
 
 public class MatchActivity extends AppCompatActivity implements View.OnClickListener{
     /*
@@ -34,6 +25,8 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
      */
     private DatePicker dpMatch = null;
     private Button btnAdd = null;
+    private TableLayout tblPlayer = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try
@@ -43,6 +36,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             this.db = Database.newInstance();
             this.getAllViews();
             this.registrateEventhandlers();
+            this.makePlayerRows();
         }
         catch (Exception e)
         {
@@ -54,7 +48,8 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     private void getAllViews() throws Exception
     {
         this.dpMatch = (DatePicker) findViewById(R.id.dpMatch);
-        this.btnAdd = (Button) findViewById((R.id.btnAdd));
+        this.btnAdd = (Button) findViewById(R.id.btnAdd);
+        this.tblPlayer = (TableLayout) findViewById(R.id.tblPlayer);
     }
 
     private void registrateEventhandlers() throws Exception
@@ -82,6 +77,24 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             Toast toast = Toast.makeText(getApplicationContext(), "Player not saved. Error: " + e.getMessage(), Toast.LENGTH_LONG);
             toast.show();
         }
->>>>>>> origin/master
+    }
+
+    //Make the rows with all Players in the table
+    private void makePlayerRows()
+    {
+        for (Player player : this.db.getTsPlayer())
+        {
+            TableRow tr = new TableRow(this);
+            TableRow.LayoutParams tblRowLp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+            tr.setLayoutParams(tblRowLp);
+
+            TextView textView = new TextView(this);
+            textView.setBackgroundColor(Color.WHITE);
+            textView.setText(player.getName());
+
+            tr.addView(textView);
+
+            this.tblPlayer.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+        }
     }
 }
