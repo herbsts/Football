@@ -145,21 +145,24 @@
     <!-- android:entries="@array/position" fills Spinner with values from strings.xml string-array name="position"-->
     <Spinner
         android:id="@+id/playerPosition"
-        android:entries="@array/position"
         android:layout_width="162dp"
         android:layout_height="0dp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        android:layout_marginStart="62dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-        android:layout_marginEnd="53dp"
-        app:layout_constraintRight_toRightOf="@+id/playerPassword"
-        android:layout_marginTop="9dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9"
-        tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="6dp"
-        app:layout_constraintLeft_toLeftOf="@+id/imageView10" />
+        android:layout_marginEnd="53dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="9dp"
+        android:entries="@array/position"
+        android:touchscreenBlocksFocus="true"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView10"
+        app:layout_constraintRight_toRightOf="@+id/playerPassword"
+        app:layout_constraintTop_toBottomOf="@+id/imageView9"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/playerNumber"
