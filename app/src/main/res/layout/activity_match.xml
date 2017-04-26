@@ -8,18 +8,18 @@
 
     <Button
         android:id="@+id/btnAdd"
-        android:layout_width="337dp"
-        android:layout_height="48dp"
+        android:layout_width="324dp"
+        android:layout_height="35dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="Add"
-        app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/dpMatch"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnUnassigne"
+        app:layout_constraintHorizontal_bias="0.511" />
 
     <DatePicker
         android:id="@+id/dpMatch"
@@ -34,16 +34,52 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
+    <Button
+        android:id="@+id/btnTeam1"
+        android:layout_width="128dp"
+        android:layout_height="35dp"
+        android:text="Team1"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tblPlayer"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnTeam2"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.519" />
+
+    <Button
+        android:id="@+id/btnTeam2"
+        android:layout_width="142dp"
+        android:layout_height="35dp"
+        android:text="Team2"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tblPlayer"
+        android:layout_marginRight="43dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <TableLayout
         android:id="@+id/tblPlayer"
         android:layout_width="326dp"
         android:layout_height="160dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/dpMatch"
+        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdd">
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent">
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/btnUnassigne"
+        android:layout_width="322dp"
+        android:layout_height="34dp"
+        android:text="Unassigne"
+        android:layout_marginTop="9dp"
+        app:layout_constraintTop_toBottomOf="@+id/btnTeam1"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

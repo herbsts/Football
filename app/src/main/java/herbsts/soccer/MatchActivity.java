@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -82,6 +83,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     //Make the rows with all Players in the table
     private void makePlayerRows()
     {
+        //DOM-Baum-ähnliches "anhängen" der Elemente in die Gui
         for (Player player : this.db.getTsPlayer())
         {
             TableRow tr = new TableRow(this);
@@ -92,7 +94,12 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             textView.setBackgroundColor(Color.WHITE);
             textView.setText(player.getName());
 
-            tr.addView(textView);           //test-comment
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setBackgroundColor(Color.WHITE);
+            checkBox.setChecked(false);
+
+            tr.addView(textView);           //"anhängen" in Row
+            tr.addView(checkBox);
 
             this.tblPlayer.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
