@@ -77,54 +77,77 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         {
             if (view == this.btnTeam1)
             {
+                // !!! Table-Lenght speichern, weil er sonst nachher in der Schleife die Table ja immer um 1 Row verringert, wenn ein Spieler einem Team hinzugefügt wird
+                // und man somit nicht mehr durch alle Spieler, sondern nur die Hälfte durchgehen würde
+                int tblLength = this.tblPlayer.getChildCount(), counterSelectedPlayer = 0;
+
                 //Alle Zeilen der Table durchgehen
-                for(int i = 0; i < this.tblPlayer.getChildCount(); i++) {
-                    View viewRow = this.tblPlayer.getChildAt(i);
+                for(int i = 0; i < tblLength; i++) {
+                    View viewRow = this.tblPlayer.getChildAt(counterSelectedPlayer);        //!!!! man kann hier nicht getChildAt(i) schreiben, weil der counter ja nicht jedes Mal weitergeht, weil beim Zeilen löschen ja der counter gleich bleiben muss
 
-                    //Schauen, ob es row ist
-                    if (viewRow instanceof TableRow) {
-                        TableRow row = (TableRow) viewRow;
+                    Player player = this.getPlayerOfTable(viewRow);
+                    counterSelectedPlayer++;
 
-                        View viewCheckBox = row.getChildAt(1);
-
-                        //Schauen, ob es checkbox ist und ob sie true ist
-                        if (viewCheckBox instanceof CheckBox)
-                        {
-                            CheckBox checkBox = (CheckBox) viewCheckBox;
-
-                            //!!! Nur wenn CheckBox angehackelt ist, den Spieler zum Team hinzufügen
-                            if (checkBox.isChecked() == true)
-                            {
-                                View viewTextView = row.getChildAt(0);
-
-                                if (viewTextView instanceof TextView)
-                                {
-                                    TextView textViewPlayer = (TextView) viewTextView;
-
-                                    //Player hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
-                                    Player player = this.db.getTsPlayer().ceiling(new Player(textViewPlayer.getText().toString()));
-                                    this.tsTeam1.add(player);
-
-                                    //Row aus Table entfernen!!!
-                                    this.tblPlayer.removeView(row);
-                                }
-                            }
-                        }
+                    //Nicht vergessen auf null abzufragen, weil theoretisch auch null von getPlayerOfTable() zurückkommen könnte.
+                    //z.b. bei allen Player, wo die Checkbox nicht angehackelt ist (die also nicht in dieses Team kommen
+                    if (player != null)
+                    {
+                        this.tsTeam1.add(player);
+                        counterSelectedPlayer--;
                     }
                 }
             }
             else
-                if (view == this.btnAdd)
+                if (view == this.btnTeam2)
                 {
-                    Calendar c = Calendar.getInstance();
-                    c.set(this.dpMatch.getYear()+1900, this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
-                    Date date = c.getTime();
-                    Toast toast = Toast.makeText(getApplicationContext(), "Match date: "+date.toString(), Toast.LENGTH_LONG);
-                    toast.show();
+                    int tblLength = this.tblPlayer.getChildCount(), counterSelectedPlayer = 0;
 
-                    // !!! Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
-                    //this.finish();
+                    //Alle Zeilen der Table durchgehen
+                    for(int i = 0; i < tblLength; i++) {
+                        View viewRow = this.tblPlayer.getChildAt(counterSelectedPlayer);
+
+                        Player player = this.getPlayerOfTable(viewRow);
+                        counterSelectedPlayer++;
+
+                        //Nicht vergessen auf null abzufragen, weil theoretisch auch null von getPlayerOfTable() zurückkommen könnte
+                        if (player != null)
+                        {
+                            this.tsTeam2.add(player);
+                            counterSelectedPlayer--;
+                        }
+                    }
                 }
+                else
+                    if (view == this.btnUnassign)
+                    {
+                        //Zuerst alle alten Zeilen aus der Table löschen, weil vielleicht noch ein paar Player drinnen sind und diese sonst doppelt sind
+                        //Alle Zeilen der Table durchgehen
+                        for(int i = 0; i < this.tblPlayer.getChildCount(); i++) {
+                            View viewRow = this.tblPlayer.getChildAt(i);
+
+                            if (viewRow instanceof TableRow) {
+                                TableRow row = (TableRow) viewRow;
+
+                                //Row aus Table entfernen!!!
+                                this.tblPlayer.removeView(row);
+                            }
+                        }
+
+                        //Die Player neu hinzufügen in die Table
+                        this.makePlayerRows();
+                    }
+                    else
+                        if (view == this.btnAdd)
+                        {
+                            Calendar c = Calendar.getInstance();
+                            c.set(this.dpMatch.getYear()+1900, this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
+                            Date date = c.getTime();
+                            Toast toast = Toast.makeText(getApplicationContext(), "Match date: "+date.toString(), Toast.LENGTH_LONG);
+                            toast.show();
+
+                            // !!! Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
+                            //this.finish();
+                        }
         }
         catch (Exception e)
         {
@@ -157,5 +180,42 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             //row in table "anhängen"
             this.tblPlayer.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
+    }
+
+    private Player getPlayerOfTable(View viewRow)
+    {
+        Player player = null;
+
+        //Schauen, ob es row ist
+        if (viewRow instanceof TableRow) {
+            TableRow row = (TableRow) viewRow;
+
+            View viewCheckBox = row.getChildAt(1);
+
+            //Schauen, ob es checkbox ist und ob sie true ist
+            if (viewCheckBox instanceof CheckBox)
+            {
+                CheckBox checkBox = (CheckBox) viewCheckBox;
+
+                //!!! Nur wenn CheckBox angehackelt ist, den Spieler zum Team hinzufügen
+                if (checkBox.isChecked() == true)
+                {
+                    View viewTextView = row.getChildAt(0);
+
+                    if (viewTextView instanceof TextView)
+                    {
+                        TextView textViewPlayer = (TextView) viewTextView;
+
+                        //Player hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
+                        player = this.db.getTsPlayer().ceiling(new Player(textViewPlayer.getText().toString()));
+
+                        //Row aus Table entfernen!!!
+                        this.tblPlayer.removeView(row);
+                    }
+                }
+            }
+        }
+
+        return player;
     }
 }
