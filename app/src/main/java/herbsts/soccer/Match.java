@@ -1,5 +1,7 @@
 package herbsts.soccer;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 import java.util.TreeSet;
 
@@ -7,7 +9,7 @@ import java.util.TreeSet;
  * Created by Lorenz on 18.03.2017.
  */
 
-public class Match {
+public class Match implements Comparable<Match> {
     private int id = -1;
     private static int idCounter = 0;
     private Date date = null;
@@ -91,5 +93,19 @@ public class Match {
     @Override
     public String toString() {
         return date + ", " + goalsMadeTeam1 + ":" + goalsMadeTeam2;
+    }
+
+    @Override
+    public int compareTo(@NonNull Match m) {
+        int help = 0;
+
+        help = this.date.compareTo(m.getDate());
+
+        if (help == 0)
+        {
+            help = this.id - m.getId();
+        }
+
+        return help;
     }
 }
