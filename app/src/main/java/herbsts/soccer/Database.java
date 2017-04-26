@@ -13,6 +13,7 @@ public class Database {
     private Database()
     {
         this.tsPlayer = new TreeSet<>();
+        this.tsMatches = new TreeSet<>();
     }
 
     public static Database newInstance()

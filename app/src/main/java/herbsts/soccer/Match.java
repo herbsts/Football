@@ -13,17 +13,16 @@ public class Match {
     private Date date = null;
     private int goalsMadeTeam1 = 0;
     private int goalsMadeTeam2 = 0;
-    private TreeSet<Player> tsTeamUnassigned = null;
+    //private TreeSet<Player> tsTeamUnassigned = null;
     private TreeSet<Player> tsTeam1 = null;
     private TreeSet<Player> tsTeam2 = null;
     private TreeSet<Statistic> tsStatistics = null;
 
-    public Match(Date date, int goalsMadeTeam1, int goalsMadeTeam2, TreeSet<Player> tsTeamUnassigned, TreeSet<Player> tsTeam1, TreeSet<Player> tsTeam2, TreeSet<Statistic> tsStatistics) {
+    public Match(Date date, int goalsMadeTeam1, int goalsMadeTeam2, TreeSet<Player> tsTeam1, TreeSet<Player> tsTeam2, TreeSet<Statistic> tsStatistics) {
         this.id = ++idCounter;
         this.date = date;
         this.goalsMadeTeam1 = goalsMadeTeam1;
         this.goalsMadeTeam2 = goalsMadeTeam2;
-        this.tsTeamUnassigned = tsTeamUnassigned;
         this.tsTeam1 = tsTeam1;
         this.tsTeam2 = tsTeam2;
         this.tsStatistics = tsStatistics;
@@ -57,13 +56,13 @@ public class Match {
         this.goalsMadeTeam2 = goalsMadeTeam2;
     }
 
-    public TreeSet<Player> getTsTeamUnassigned() {
+    /*public TreeSet<Player> getTsTeamUnassigned() {
         return tsTeamUnassigned;
     }
 
     public void setTsTeamUnassigned(TreeSet<Player> tsTeamUnassigned) {
         this.tsTeamUnassigned = tsTeamUnassigned;
-    }
+    }*/
 
     public TreeSet<Player> getTsTeam1() {
         return tsTeam1;

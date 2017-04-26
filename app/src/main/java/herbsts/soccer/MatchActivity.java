@@ -142,16 +142,17 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                             Calendar c = Calendar.getInstance();
                             c.set(this.dpMatch.getYear()+1900, this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
                             Date date = c.getTime();
-                            Toast toast = Toast.makeText(getApplicationContext(), "Match date: "+date.toString(), Toast.LENGTH_LONG);
-                            toast.show();
 
-                            // !!! Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
-                            //this.finish();
+                            Match match = new Match(date, -1, -1, this.tsTeam1, this.tsTeam2, null);
+                            this.db.addMatch(match);
+
+                            //Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
+                            this.finish();
                         }
         }
         catch (Exception e)
         {
-            Toast toast = Toast.makeText(getApplicationContext(), "Player not saved. Error: " + e.getMessage(), Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getApplicationContext(), "Match not saved. Error: " + e.getMessage(), Toast.LENGTH_LONG);
             toast.show();
         }
     }
