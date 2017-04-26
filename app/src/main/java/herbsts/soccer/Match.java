@@ -97,15 +97,6 @@ public class Match implements Comparable<Match> {
 
     @Override
     public int compareTo(@NonNull Match m) {
-        int help = 0;
-
-        help = this.date.compareTo(m.getDate());
-
-        if (help == 0)
-        {
-            help = this.id - m.getId();
-        }
-
-        return help;
+        return this.date.compareTo(m.getDate());
     }
 }
