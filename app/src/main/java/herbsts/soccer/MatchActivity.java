@@ -14,18 +14,24 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TreeSet;
 
 public class MatchActivity extends AppCompatActivity implements View.OnClickListener{
     /*
     non-gui-attributes
      */
     private Database db = null;
+    private TreeSet<Player> tsTeam1 = null;
+    private TreeSet<Player> tsTeam2 = null;
 
     /*
     gui-attributes
      */
     private DatePicker dpMatch = null;
     private Button btnAdd = null;
+    private Button btnTeam1 = null;
+    private Button btnTeam2 = null;
+    private Button btnUnassign = null;
     private TableLayout tblPlayer = null;
 
     @Override
@@ -34,6 +40,8 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_match);
+            this.tsTeam1 = new TreeSet<>();
+            this.tsTeam2 = new TreeSet<>();
             this.db = Database.newInstance();
             this.getAllViews();
             this.registrateEventhandlers();
@@ -50,28 +58,73 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     {
         this.dpMatch = (DatePicker) findViewById(R.id.dpMatch);
         this.btnAdd = (Button) findViewById(R.id.btnAdd);
+        this.btnTeam1 = (Button) findViewById(R.id.btnTeam1);
+        this.btnTeam2 = (Button) findViewById(R.id.btnTeam2);
+        this.btnUnassign = (Button) findViewById(R.id.btnUnassign);
         this.tblPlayer = (TableLayout) findViewById(R.id.tblPlayer);
     }
 
     private void registrateEventhandlers() throws Exception
     {
         this.btnAdd.setOnClickListener(this);
+        this.btnTeam1.setOnClickListener(this);
+        this.btnTeam2.setOnClickListener(this);
+        this.btnUnassign.setOnClickListener(this);
     }
 
     public void onClick(View view) {
         try
         {
-            if (view == this.btnAdd)
+            if (view == this.btnTeam1)
             {
-                Calendar c = Calendar.getInstance();
-                c.set(this.dpMatch.getYear()+1900, this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
-                Date date = c.getTime();
-                Toast toast = Toast.makeText(getApplicationContext(), "Match date: "+date.toString(), Toast.LENGTH_LONG);
-                toast.show();
+                //Alle Zeilen der Table durchgehen
+                for(int i = 0; i < this.tblPlayer.getChildCount(); i++) {
+                    View viewRow = this.tblPlayer.getChildAt(i);
 
-                // !!! Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
-                //this.finish();
+                    //Schauen, ob es row ist
+                    if (viewRow instanceof TableRow) {
+                        TableRow row = (TableRow) viewRow;
+
+                        View viewCheckBox = row.getChildAt(1);
+
+                        //Schauen, ob es checkbox ist und ob sie true ist
+                        if (viewCheckBox instanceof CheckBox)
+                        {
+                            CheckBox checkBox = (CheckBox) viewCheckBox;
+
+                            //!!! Nur wenn CheckBox angehackelt ist, den Spieler zum Team hinzufügen
+                            if (checkBox.isChecked() == true)
+                            {
+                                View viewTextView = row.getChildAt(0);
+
+                                if (viewTextView instanceof TextView)
+                                {
+                                    TextView textViewPlayer = (TextView) viewTextView;
+
+                                    //Player hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
+                                    Player player = this.db.getTsPlayer().ceiling(new Player(textViewPlayer.getText().toString()));
+                                    this.tsTeam1.add(player);
+
+                                    //Row aus Table entfernen!!!
+                                    this.tblPlayer.removeView(row);
+                                }
+                            }
+                        }
+                    }
+                }
             }
+            else
+                if (view == this.btnAdd)
+                {
+                    Calendar c = Calendar.getInstance();
+                    c.set(this.dpMatch.getYear()+1900, this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
+                    Date date = c.getTime();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Match date: "+date.toString(), Toast.LENGTH_LONG);
+                    toast.show();
+
+                    // !!! Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
+                    //this.finish();
+                }
         }
         catch (Exception e)
         {
@@ -101,6 +154,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             tr.addView(textView);           //"anhängen" in Row
             tr.addView(checkBox);
 
+            //row in table "anhängen"
             this.tblPlayer.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
     }
