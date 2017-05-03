@@ -88,8 +88,8 @@ public class MatchDisplayActivity extends AppCompatActivity implements View.OnLo
                     TextView textViewMatch = (TextView) viewTextView;
 
                     String dateString = textViewMatch.getText().toString().split(",")[0];
-                    SimpleDateFormat sdf = new SimpleDateFormat();      //Kein Format drinnen, weil er default nehmen soll
-                    Date date = sdf.parse(dateString);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");      //Kein Format drinnen, weil er default nehmen soll
+                    Date date = simpleDateFormat.parse(dateString);
 
                     //Match hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
                     final Match selectedMatch = this.db.getTsMatches().ceiling(new Match(date, -1, -1, null, null, null));

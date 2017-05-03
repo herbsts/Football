@@ -143,7 +143,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                         if (view == this.btnAdd)
                         {
                             //SimpleDateFormat simpleDateFormatOld = new SimpleDateFormat("yyyy-MM-dd");
-                            SimpleDateFormat simpleDateFormatNew = new SimpleDateFormat("E, dd.MM.yyyy");
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");
                             Calendar c = Calendar.getInstance();
                             //TimeZone tz = c.getTimeZone();
                             //Toast toast = Toast.makeText(getApplicationContext(), "TimeZone: " + tz, Toast.LENGTH_LONG);
@@ -151,8 +151,8 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
 
                             c.set(this.dpMatch.getYear(), this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
                             Date date = c.getTime();
-                            String dateNewString = simpleDateFormatNew.format(date);
-                            date = simpleDateFormatNew.parse(dateNewString);
+                            String dateNewString = simpleDateFormat.format(date);
+                            date = simpleDateFormat.parse(dateNewString);
 
                             Match match = new Match(date, -1, -1, this.tsTeam1, this.tsTeam2, null);
                             this.db.addMatch(match);

@@ -17,11 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+        <!--   <activity
             android:name=".Activities.NavDrawerActivity"
             android:label="NavDrawerAcitivty"
             android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        </activity>     -->
+        <activity android:name=".MainGui" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MatchActivity" />
         <activity android:name=".MatchDisplayActivity"></activity>
