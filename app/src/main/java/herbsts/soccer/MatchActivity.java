@@ -1,6 +1,7 @@
 package herbsts.soccer;
 
 import android.graphics.Color;
+import android.icu.text.TimeZoneFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +13,10 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.TreeSet;
 
 public class MatchActivity extends AppCompatActivity implements View.OnClickListener{
@@ -139,9 +142,17 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                     else
                         if (view == this.btnAdd)
                         {
+                            //SimpleDateFormat simpleDateFormatOld = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat simpleDateFormatNew = new SimpleDateFormat("E, dd.MM.yyyy");
                             Calendar c = Calendar.getInstance();
-                            c.set(this.dpMatch.getYear()+1900, this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
+                            //TimeZone tz = c.getTimeZone();
+                            //Toast toast = Toast.makeText(getApplicationContext(), "TimeZone: " + tz, Toast.LENGTH_LONG);
+                            //toast.show();
+
+                            c.set(this.dpMatch.getYear(), this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
                             Date date = c.getTime();
+                            String dateNewString = simpleDateFormatNew.format(date);
+                            date = simpleDateFormatNew.parse(dateNewString);
 
                             Match match = new Match(date, -1, -1, this.tsTeam1, this.tsTeam2, null);
                             this.db.addMatch(match);

@@ -2,6 +2,7 @@ package herbsts.soccer;
 
 import android.support.annotation.NonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TreeSet;
 
@@ -92,7 +93,8 @@ public class Match implements Comparable<Match> {
 
     @Override
     public String toString() {
-        return date + ", " + goalsMadeTeam1 + ":" + goalsMadeTeam2;
+        SimpleDateFormat simpleDateFormatNew = new SimpleDateFormat("E, dd.MM.yyyy");
+        return simpleDateFormatNew.format(date) + ", " + goalsMadeTeam1 + ":" + goalsMadeTeam2;
     }
 
     @Override
