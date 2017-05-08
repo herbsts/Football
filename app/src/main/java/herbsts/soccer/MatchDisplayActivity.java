@@ -79,17 +79,23 @@ public class MatchDisplayActivity extends AppCompatActivity implements View.OnLo
         {
             if (view instanceof TableRow)
             {
-                TableRow row = (TableRow) view;
+                final TableRow row = (TableRow) view;           //final muss die row sein, damit man sie im alertDialog löschen kann
 
                 View viewTextView = row.getChildAt(0);
 
                 if (viewTextView instanceof TextView)
                 {
+                    //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("E, dd.MM.yyyy");
+                    SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
                     TextView textViewMatch = (TextView) viewTextView;
 
-                    String dateString = textViewMatch.getText().toString().split(",")[0];
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");      //Kein Format drinnen, weil er default nehmen soll
-                    Date date = simpleDateFormat.parse(dateString);
+                    String dateString = textViewMatch.getText().toString().split(",")[1];       // !!! Filtert das Datum OHNE dem ausgeschriebenen Tag davor heraus
+                    dateString.trim();
+
+                    Date date = sdf.parse(dateString);
+                    //dateString = simpleDateFormat2.format(date);
+                    //date = simpleDateFormat2.parse(dateString);
 
                     //Match hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
                     final Match selectedMatch = this.db.getTsMatches().ceiling(new Match(date, -1, -1, null, null, null));
@@ -106,6 +112,8 @@ public class MatchDisplayActivity extends AppCompatActivity implements View.OnLo
                                     try
                                     {
                                         db.removeMatch(selectedMatch);
+                                        tblMatch.removeView(row);
+                                        makeMatchRows();
                                     }
                                     catch (Exception e)
                                     {
