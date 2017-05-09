@@ -12,17 +12,9 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
-        <LinearLayout
+        <ListView
+            android:id="@+id/lvMatch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TableLayout
-                android:id="@+id/tblMatch"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </TableLayout>
-        </LinearLayout>
+            android:layout_height="wrap_content" />
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
