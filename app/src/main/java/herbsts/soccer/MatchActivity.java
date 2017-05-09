@@ -145,9 +145,6 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                             //SimpleDateFormat simpleDateFormatOld = new SimpleDateFormat("yyyy-MM-dd");
                             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");
                             Calendar c = Calendar.getInstance();
-                            //TimeZone tz = c.getTimeZone();
-                            //Toast toast = Toast.makeText(getApplicationContext(), "TimeZone: " + tz, Toast.LENGTH_LONG);
-                            //toast.show();
 
                             c.set(this.dpMatch.getYear(), this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
                             Date date = c.getTime();
@@ -174,23 +171,27 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         //DOM-Baum-ähnliches "anhängen" der Elemente in die Gui
         for (Player player : this.db.getTsPlayer())
         {
-            TableRow tr = new TableRow(this);
-            TableRow.LayoutParams tblRowLp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-            tr.setLayoutParams(tblRowLp);
+            //Nur jene werden angezeigt, die zur Zeit auch spielbereit sind
+            if (player.isActive())
+            {
+                TableRow tr = new TableRow(this);
+                TableRow.LayoutParams tblRowLp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+                tr.setLayoutParams(tblRowLp);
 
-            TextView textView = new TextView(this);
-            textView.setBackgroundColor(Color.WHITE);
-            textView.setText(player.getName());
+                TextView textView = new TextView(this);
+                textView.setBackgroundColor(Color.WHITE);
+                textView.setText(player.getName());
 
-            CheckBox checkBox = new CheckBox(this);
-            checkBox.setBackgroundColor(Color.WHITE);
-            checkBox.setChecked(false);
+                CheckBox checkBox = new CheckBox(this);
+                checkBox.setBackgroundColor(Color.WHITE);
+                checkBox.setChecked(false);
 
-            tr.addView(textView);           //"anhängen" in Row
-            tr.addView(checkBox);
+                tr.addView(textView);           //"anhängen" in Row
+                tr.addView(checkBox);
 
-            //row in table "anhängen"
-            this.tblPlayer.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                //row in table "anhängen"
+                this.tblPlayer.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            }
         }
     }
 
