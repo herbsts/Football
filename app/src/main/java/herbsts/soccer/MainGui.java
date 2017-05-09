@@ -64,7 +64,10 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
     //e.g. onClick
     private void registrateEventhandlers() throws Exception
     {
+        this.btnStatistic.setOnClickListener(this);
         this.btnProfile.setOnClickListener(this);
+        this.btnCalendar.setOnClickListener(this);
+        this.btnTeam.setOnClickListener(this);
     }
 
     @Override
@@ -75,6 +78,15 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
             {
                 Intent intent = new Intent(this, ProfileActivity.class);
                 intent.putExtra("intentPlayerName", this.playerName);
+                startActivity(intent);
+            }
+            else if (view == this.btnCalendar)
+            {
+                Intent intent = new Intent(this, MatchDisplayActivity.class);
+                startActivity(intent);
+            }
+            else if (view == this.btnTeam){
+                Intent intent = new Intent(this, MatchActivity.class);
                 startActivity(intent);
             }
         }
