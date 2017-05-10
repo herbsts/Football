@@ -62,6 +62,18 @@ public class Database {
         return returnPlayer;
     }
 
+    public Match getSpecifyMatch(Match match) throws Exception
+    {
+        Match returnMatch = null;
+
+        if (this.tsMatches.contains(match))
+        {
+            returnMatch = this.tsMatches.ceiling(match);
+        }
+
+        return returnMatch;
+    }
+
     public ArrayList<Match> getArrayListMatches() {
         return new ArrayList<>(tsMatches);
     }

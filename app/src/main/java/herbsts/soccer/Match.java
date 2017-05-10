@@ -31,6 +31,12 @@ public class Match implements Comparable<Match> {
         this.tsStatistics = tsStatistics;
     }
 
+    //!!!!!ACHTUNG: Nicht für ein "normales" Match verwenden, sondern nur für ceiling() vom TreeSet in StatisticMatchActivity
+    public Match(Date date)
+    {
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package herbsts.soccer;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,17 +74,25 @@ public class MatchDisplayActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        String lvItemString, dateString;
+
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         final int selectedRowIndex = info.position;
 
         try {
             switch (item.getItemId()) {
                 case R.id.menuItemEdit:
+                    lvItemString = lvMatch.getItemAtPosition(selectedRowIndex).toString();
+                    dateString = lvItemString.split(",")[1];       // !!! Filtert das Datum OHNE dem ausgeschriebenen Tag davor heraus
+                    dateString.trim();
+
+                    Intent intent = new Intent(this, StatisticMatchActivity.class);
+                    intent.putExtra("intentSelectedMatchDate", dateString);     //Weil compareTo nach Datum vergleicht kann man im neuen Intent das Match mit dem Date holen
+                    startActivity(intent);
 
                     return true;
 
                 case R.id.menuItemDelete:
-                    String lvItemString, dateString;
                     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
                     lvItemString = lvMatch.getItemAtPosition(selectedRowIndex).toString();
