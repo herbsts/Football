@@ -3,7 +3,9 @@ package herbsts.soccer;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.NumberPicker;
+import android.text.InputType;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -12,7 +14,8 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class StatisticMatchActivity extends AppCompatActivity {
+
+public class StatisticMatchActivity extends AppCompatActivity implements View.OnClickListener {
     /*
     non-gui-attributes
      */
@@ -22,6 +25,8 @@ public class StatisticMatchActivity extends AppCompatActivity {
     /*
     gui-attributes
      */
+    private TextView txtResultTeam1 = null;
+    private TextView txtResultTeam2 = null;
     private TableLayout tblTeam1 = null;
     private TableLayout tblTeam2 = null;
 
@@ -45,6 +50,8 @@ public class StatisticMatchActivity extends AppCompatActivity {
 
     private void getAllViews() throws Exception
     {
+        this.txtResultTeam1 = (TextView) findViewById(R.id.txtResultTeam1);
+        this.txtResultTeam2 = (TextView) findViewById(R.id.txtResultTeam2);
         this.tblTeam1 = (TableLayout) findViewById(R.id.tblTeam1);
         this.tblTeam2 = (TableLayout) findViewById(R.id.tblTeam2);
     }
@@ -89,18 +96,76 @@ public class StatisticMatchActivity extends AppCompatActivity {
         TableRow.LayoutParams tblRowLp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         tr.setLayoutParams(tblRowLp);
 
-        TextView textView = new TextView(this);
-        textView.setBackgroundColor(Color.WHITE);
-        textView.setText(player.getName());
+        TextView playerName = new TextView(this);
+        playerName.setBackgroundColor(Color.WHITE);
+        playerName.setText(player.getName());
 
-        NumberPicker nPicker = new NumberPicker(this);
-        nPicker.setBackgroundColor(Color.WHITE);
-        nPicker.setWrapSelectorWheel(true);
-        nPicker.setMinValue(0);
+        EditText eTextGoals = new EditText(this);
+        eTextGoals.setInputType(InputType.TYPE_CLASS_NUMBER);
+        eTextGoals.setText("0");
+        eTextGoals.setOnClickListener(this);
 
-        tr.addView(textView);           //"anhängen" in Row
-        tr.addView(nPicker);
+        tr.addView(playerName);           //"anhängen" in Row
+        tr.addView(eTextGoals);
 
         return tr;
+    }
+
+    //Erhöht die GESAMTEN Tore ganz oben in der Gui, wenn bei einem Player die Tore erhöht werden
+    @Override
+    public void onClick(View v) {
+        try {
+            if (v instanceof EditText)
+            {
+                int goals = 0;
+
+                TableRow selectedRow = (TableRow) v.getParent();
+                TableLayout selectedTable = (TableLayout) selectedRow.getParent();
+
+                if (selectedTable == this.tblTeam1)
+                {
+                    goals = countGoals(this.tblTeam1);
+                    this.txtResultTeam1.setText("" + goals);
+                }
+                else
+                if (selectedTable == this.tblTeam2)
+                {
+                    goals = countGoals(this.tblTeam2);
+                    this.txtResultTeam2.setText("" + goals);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    //Zählt alle Tore des jeweiligen Teams zusammen
+    private int countGoals(TableLayout tblTeam) throws Exception
+    {
+        int goals = 0;
+
+        for (int i=0; i < tblTeam.getChildCount(); i++)
+        {
+            View rowView = tblTeam.getChildAt(i);
+
+            if (rowView instanceof TableRow)
+            {
+                TableRow row = (TableRow) rowView;
+
+                View eTextView = row.getChildAt(1);
+
+                if (eTextView instanceof EditText)
+                {
+                    EditText eText = (EditText) eTextView;
+
+                    goals += Integer.parseInt(eText.getText().toString());
+                }
+            }
+        }
+
+        return goals;
     }
 }
