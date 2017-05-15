@@ -4,8 +4,11 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -22,6 +25,7 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
      */
     private Database db = null;
     private Match selectedMatch = null;
+    TextWatcher textWatcher = null;
 
     /*
     gui-attributes
@@ -30,6 +34,7 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
     private TextView txtResultTeam2 = null;
     private TableLayout tblTeam1 = null;
     private TableLayout tblTeam2 = null;
+    private Button btnSave = null;
 
 
     @Override
@@ -39,6 +44,8 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
             setContentView(R.layout.activity_statistic_match);
             this.db = Database.newInstance();
             this.getAllViews();
+            this.registrateEventhandlers();
+            this.initializeTextWatcher();
             this.setContent();
             this.makePlayerRows();
         }
@@ -55,6 +62,43 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
         this.txtResultTeam2 = (TextView) findViewById(R.id.txtResultTeam2);
         this.tblTeam1 = (TableLayout) findViewById(R.id.tblTeam1);
         this.tblTeam2 = (TableLayout) findViewById(R.id.tblTeam2);
+        this.btnSave = (Button) findViewById(R.id.btnSave);
+    }
+
+    private void registrateEventhandlers() throws Exception {
+        this.btnSave.setOnClickListener(this);
+    }
+
+    private void initializeTextWatcher() throws Exception {
+        this.textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int goals = 0;
+
+                try {
+                    goals = countGoals(tblTeam1);
+                    txtResultTeam1.setText("" + goals);
+
+                    goals = countGoals(tblTeam2);
+                    txtResultTeam2.setText("" + goals);
+                }
+                catch (Exception e)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "error: " + e.getMessage(), Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        };
     }
 
     //Setzt die übergebenen Parameter vom Intent
@@ -104,7 +148,8 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
         EditText eTextGoals = new EditText(this);
         eTextGoals.setInputType(InputType.TYPE_CLASS_NUMBER);
         eTextGoals.setText("0");
-        eTextGoals.setOnClickListener(this);
+        /** !!!!!!!! TextWatcher adden!!!!!!!!! **/
+        eTextGoals.addTextChangedListener(this.textWatcher);
 
         tr.addView(playerName);           //"anhängen" in Row
         tr.addView(eTextGoals);
@@ -116,24 +161,10 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         try {
-            if (v instanceof EditText)
+            if (v == this.btnSave)
             {
-                int goals = 0;
-
-                TableRow selectedRow = (TableRow) v.getParent();
-                TableLayout selectedTable = (TableLayout) selectedRow.getParent();
-
-                if (selectedTable == this.tblTeam1)
-                {
-                    goals = countGoals(this.tblTeam1);
-                    this.txtResultTeam1.setText("" + goals);
-                }
-                else
-                if (selectedTable == this.tblTeam2)
-                {
-                    goals = countGoals(this.tblTeam2);
-                    this.txtResultTeam2.setText("" + goals);
-                }
+                Toast toast = Toast.makeText(getApplicationContext(), "nothing implemented", Toast.LENGTH_LONG);
+                toast.show();
             }
         }
         catch (Exception e)
@@ -161,8 +192,15 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
                 if (eTextView instanceof EditText)
                 {
                     EditText eText = (EditText) eTextView;
+                    String goalsString = eText.getText().toString();
 
-                    goals += Integer.parseInt(eText.getText().toString());
+                    //Braucht man, weil wenn User in EditText hineinklickt und zahl löscht, würde eine Exception beim TextWatcher (afterTextChanged) kommen, weil ja keine Zahl drin ist
+                    if (goalsString.equals(""))
+                    {
+                        goalsString = "0";
+                    }
+
+                    goals += Integer.parseInt(goalsString);
                 }
             }
         }
