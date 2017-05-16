@@ -1,40 +1,32 @@
 package herbsts.soccer;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ListViewCompat;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-public class MatchDisplayActivity extends AppCompatActivity implements View.OnLongClickListener {
+public class MatchDisplayActivity extends AppCompatActivity {
     /*
         non-gui-attributes
-         */
+    */
     private Database db = null;
-    //private View selectedTableRow = null;
 
     /*
     gui-attributes
      */
-    private TableLayout tblMatch = null;
-    //private ListView listViewMatch = null;
+    private ListView lvMatch = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,62 +48,55 @@ public class MatchDisplayActivity extends AppCompatActivity implements View.OnLo
 
     private void getAllViews() throws Exception
     {
-        this.tblMatch = (TableLayout) findViewById(R.id.tblMatch);
-        //this.listViewMatch = (ListView) findViewById(R.id.listViewMatch);
+        this.lvMatch = (ListView) findViewById(R.id.lvMatch);
     }
 
     private void registrateEventhandlers() throws Exception
     {
-        registerForContextMenu(this.tblMatch);          //Damit sich das Menü für Edit und Delete von den Matches aufklappt
-        //registerForContextMenu(listViewMatch);
+        registerForContextMenu(lvMatch);            //Damit sich das Menü für Edit und Delete von den Matches aufklappt
     }
 
     //Makes rows with all Matches in the table
     private void makeMatchRows() throws Exception
     {
-        //DOM-Baum-ähnliches "anhängen" der Elemente in die Gui
-        for (Match match : this.db.getTsMatches())
-        {
-            TableRow tr = new TableRow(this);
-            TableRow.LayoutParams tblRowLp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-            tr.setLayoutParams(tblRowLp);
-            // !!! ACHTUNG: der OnLongClickListener wird hier bei jeder Row einzeln gesetzt und nicht auf die gesamte Table, damit man immer auf ein
-            //einzelnes Match klicken muss und nicht irgendwo in Table klicken kann
-            tr.setOnLongClickListener(this);
-
-            TextView textView = new TextView(this);
-            textView.setBackgroundColor(Color.WHITE);
-            textView.setText(match.toString());     //Schreibt eh dass richtige anhand der toString-Methode
-
-            tr.addView(textView);           //"anhängen" in Row
-
-            //row in table "anhängen"
-            this.tblMatch.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-        }
-        /*
-        ArrayAdapter<Match> arrayAdapter = new ArrayAdapter<Match>(this, android.R.layout.simple_list_item_1, this.db.getArrayListMatches());
-        this.listViewMatch.setAdapter(arrayAdapter);
-        */
+        ArrayAdapter<Match> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.db.getArrayListMatches());
+        this.lvMatch.setAdapter(arrayAdapter);
     }
 
     @Override
-    public boolean onLongClick(View view) {
-        boolean booleanReturn = true;
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        //this.selectedTableRow = v;
 
-        try
-        {
-            if (view instanceof TableRow)
-            {
-                final TableRow row = (TableRow) view;           //final muss die row sein, damit man sie im alertDialog löschen kann
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.match_floating_context_menu, menu);
+    }
 
-                View viewTextView = row.getChildAt(0);
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        String lvItemString, dateString;
 
-                if (viewTextView instanceof TextView)
-                {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final int selectedRowIndex = info.position;
+
+        try {
+            switch (item.getItemId()) {
+                case R.id.menuItemEdit:
+                    lvItemString = lvMatch.getItemAtPosition(selectedRowIndex).toString();
+                    dateString = lvItemString.split(",")[1];       // !!! Filtert das Datum OHNE dem ausgeschriebenen Tag davor heraus
+                    dateString.trim();
+
+                    Intent intent = new Intent(this, StatisticMatchActivity.class);
+                    intent.putExtra("intentSelectedMatchDate", dateString);     //Weil compareTo nach Datum vergleicht kann man im neuen Intent das Match mit dem Date holen
+                    startActivity(intent);
+
+                    return true;
+
+                case R.id.menuItemDelete:
                     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-                    TextView textViewMatch = (TextView) viewTextView;
 
-                    String dateString = textViewMatch.getText().toString().split(",")[1];       // !!! Filtert das Datum OHNE dem ausgeschriebenen Tag davor heraus
+                    lvItemString = lvMatch.getItemAtPosition(selectedRowIndex).toString();
+                    dateString = lvItemString.split(",")[1];       // !!! Filtert das Datum OHNE dem ausgeschriebenen Tag davor heraus
                     dateString.trim();
 
                     Date date = sdf.parse(dateString);
@@ -120,6 +105,7 @@ public class MatchDisplayActivity extends AppCompatActivity implements View.OnLo
                     final Match selectedMatch = this.db.getTsMatches().ceiling(new Match(date, -1, -1, null, null, null));
 
                     /**********Alert Dialog************/
+
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage("Delete?");
                     builder.setCancelable(true);
@@ -128,14 +114,10 @@ public class MatchDisplayActivity extends AppCompatActivity implements View.OnLo
                             "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    try
-                                    {
+                                    try {
                                         db.removeMatch(selectedMatch);
-                                        tblMatch.removeView(row);
                                         makeMatchRows();
-                                    }
-                                    catch (Exception e)
-                                    {
+                                    } catch (Exception e) {
                                         Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
                                         toast.show();
                                     }
@@ -152,95 +134,6 @@ public class MatchDisplayActivity extends AppCompatActivity implements View.OnLo
 
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            booleanReturn = false;
-            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-            toast.show();
-        }
-
-        return booleanReturn;
-    }
-    /*
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        this.selectedTableRow = v;
-
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.match_floating_context_menu, menu);
-    }
-    */
-    /*
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
-        try {
-            switch (item.getItemId()) {
-                case R.id.menuItemEdit:
-
-                    return true;
-
-                case R.id.menuItemDelete:
-                    //if (this.selectedMenuItem instanceof TableRow) {
-
-
-
-
-                        View viewRow = this.tblMatch.getChildAt(info.position);           //final muss die row sein, damit man sie im alertDialog löschen kann
-                        final TableRow row = (TableRow) viewRow;
-
-                        View viewTextView = row.getChildAt(0);
-
-                        if (viewTextView instanceof TextView) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-                            TextView textViewMatch = (TextView) viewTextView;
-
-                            String dateString = textViewMatch.getText().toString().split(",")[1];       // !!! Filtert das Datum OHNE dem ausgeschriebenen Tag davor heraus
-                            dateString.trim();
-
-                            Date date = sdf.parse(dateString);
-
-                            //Match hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
-                            final Match selectedMatch = this.db.getTsMatches().ceiling(new Match(date, -1, -1, null, null, null));
-*/
-                            /**********Alert Dialog************/
-                            /*
-                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                            builder.setMessage("Delete?");
-                            builder.setCancelable(true);
-
-                            builder.setPositiveButton(
-                                    "Yes",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            try {
-                                                db.removeMatch(selectedMatch);
-                                                tblMatch.removeView(row);
-                                                makeMatchRows();
-                                            } catch (Exception e) {
-                                                Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
-                                                toast.show();
-                                            }
-                                        }
-                                    });
-
-                            builder.setNegativeButton(
-                                    "No",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
-                        }
-                    //}
 
                     return true;
 
@@ -254,5 +147,5 @@ public class MatchDisplayActivity extends AppCompatActivity implements View.OnLo
             toast.show();
             return false;
         }
-    }*/
+    }
 }
