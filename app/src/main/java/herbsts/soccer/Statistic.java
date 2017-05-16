@@ -1,10 +1,12 @@
 package herbsts.soccer;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by Stefan Herbst on 16.03.2017.
  */
 
-public class Statistic {
+public class Statistic implements Comparable<Statistic> {
     private int id = -1;
     private static int idCounter = 0;
     private Match match = null;
@@ -24,6 +26,11 @@ public class Statistic {
         this.goalsHeadSnow = goalsHeadSnow;
         this.goalsOwn = goalsOwn;
         this.nutmegs = nutmegs;
+    }
+
+    public Statistic(Match match)
+    {
+        this.match = match;
     }
 
     public Match getMatch() {
@@ -93,5 +100,10 @@ public class Statistic {
                 ", goalsOwn=" + goalsOwn +
                 ", nutmegs=" + nutmegs +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Statistic s) {
+        return this.match.compareTo(s.getMatch());
     }
 }

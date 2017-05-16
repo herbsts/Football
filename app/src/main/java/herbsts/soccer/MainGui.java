@@ -74,7 +74,13 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         try
         {
-            if (view == this.btnProfile)
+            if (view == this.btnStatistic)
+            {
+                Intent intent = new Intent(this, StatisticPlayerActivity.class);
+                intent.putExtra("intentPlayerName", this.playerName);
+                startActivity(intent);
+            }
+            else if (view == this.btnProfile)
             {
                 Intent intent = new Intent(this, ProfileActivity.class);
                 intent.putExtra("intentPlayerName", this.playerName);

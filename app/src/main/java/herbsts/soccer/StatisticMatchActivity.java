@@ -15,6 +15,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -163,7 +165,10 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
         try {
             if (v == this.btnSave)
             {
-                Toast toast = Toast.makeText(getApplicationContext(), "nothing implemented", Toast.LENGTH_LONG);
+                this.saveResult(this.tblTeam1);
+                this.saveResult(this.tblTeam2);
+
+                Toast toast = Toast.makeText(getApplicationContext(), "successfully saved", Toast.LENGTH_LONG);
                 toast.show();
             }
         }
@@ -206,5 +211,62 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
         }
 
         return goals;
+    }
+
+    private void saveResult(TableLayout tblTeam) throws Exception {
+        int goals = 0;
+
+        for (int i=0; i < tblTeam.getChildCount(); i++)
+        {
+            View rowView = tblTeam.getChildAt(i);
+
+            if (rowView instanceof TableRow)
+            {
+                TableRow row = (TableRow) rowView;
+
+                View txtPlayerNameView = row.getChildAt(0);
+                View eTextView = row.getChildAt(1);
+
+                if (txtPlayerNameView instanceof TextView)
+                {
+                    TextView txtPlayerName = (TextView) txtPlayerNameView;
+                    String playerName = txtPlayerName.getText().toString();
+
+                    if (eTextView instanceof EditText)
+                    {
+                        EditText eText = (EditText) eTextView;
+                        String goalsString = eText.getText().toString();
+
+                        //Braucht man, weil wenn User in EditText hineinklickt und zahl löscht, würde eine Exception beim TextWatcher (afterTextChanged) kommen, weil ja keine Zahl drin ist
+                        if (goalsString.equals(""))
+                        {
+                            goalsString = "0";
+                        }
+
+                        goals += Integer.parseInt(goalsString);
+
+                        /*** Player updaten ***/
+                        Player player = new Player(playerName);
+                        Statistic statistic = new Statistic(this.selectedMatch);
+
+                        if (tblTeam == this.tblTeam1)
+                        {
+                            //Damit man nicht 2 mal die gleiche Statistik haben kann
+                            if (this.selectedMatch.getTsTeam1().ceiling(player).getTsStatistic().contains(statistic) == false)
+                            {
+                                statistic = new Statistic(this.selectedMatch, goals, 0, 0, 0, 0, 0);
+                                this.selectedMatch.getTsTeam1().ceiling(player).addStatistic(statistic);
+                            }
+                        }
+                        else
+                            if (tblTeam == this.tblTeam2)
+                            {
+                                statistic = new Statistic(this.selectedMatch, goals, 0, 0, 0, 0, 0);
+                                this.selectedMatch.getTsTeam2().ceiling(player).addStatistic(statistic);
+                            }
+                    }
+                }
+            }
+        }
     }
 }

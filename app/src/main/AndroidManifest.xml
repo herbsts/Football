@@ -30,7 +30,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MatchActivity" />
         <activity android:name=".MatchDisplayActivity" />
-        <activity android:name=".StatisticMatchActivity"></activity>
+        <activity android:name=".StatisticMatchActivity" />
+        <activity android:name=".StatisticPlayerActivity"></activity>
     </application>
 
 </manifest>

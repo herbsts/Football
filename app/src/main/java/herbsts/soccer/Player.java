@@ -88,6 +88,10 @@ public class Player implements Comparable<Player> {
         isActive = active;
     }
 
+    public TreeSet<Statistic> getTsStatistic() {
+        return tsStatistic;
+    }
+
     @Override
     public String toString() {
         return this.name;
@@ -132,5 +136,9 @@ public class Player implements Comparable<Player> {
                     }
 
         return pos;
+    }
+
+    public void addStatistic(Statistic statistic) {
+        this.tsStatistic.add(statistic);
     }
 }
