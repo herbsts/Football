@@ -28,6 +28,8 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
      */
     private Database db = null;
     private Match selectedMatch = null;
+    private int goalsTotalTeam1 = 0;
+    private int goalsTotalTeam2 = 0;
     TextWatcher textWatcher = null;
 
     /*
@@ -71,7 +73,7 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
     {
         listener = l;
     }
-    /***********************/
+    /*******************************/
 
     private void getAllViews() throws Exception
     {
@@ -141,6 +143,7 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
             //row in table "anhängen"
             this.tblTeam1.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
+        this.txtResultTeam1.setText("" + this.goalsTotalTeam1);
 
         //2. Team
         for (Player player : this.selectedMatch.getTsTeam2())
@@ -150,6 +153,7 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
             //row in table "anhängen"
             this.tblTeam2.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         }
+        this.txtResultTeam2.setText("" + this.goalsTotalTeam2);
     }
 
     //Macht die Elemente der TableRow (damit man oben nicht 2 mal fast den gleichen Code für Team1 und Team2 hat)
@@ -162,11 +166,28 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
         playerName.setBackgroundColor(Color.WHITE);
         playerName.setText(player.getName());
 
+        /**Statistic holen, weil wenn man Match zum 2. Mal bearbeitet, kann es ja sein, dass ein Player schon Tore gespeichert hat, und die müssen dann wieder angezeigt werden**/
+        int goalsPlayer = 0;
+
+        if (player.getTsStatistic().contains(new Statistic(this.selectedMatch)))
+        {
+            Statistic stat = player.getTsStatistic().ceiling(new Statistic(this.selectedMatch));
+            goalsPlayer = stat.getGoalsShot();
+        }
+
         EditText eTextGoals = new EditText(this);
         eTextGoals.setInputType(InputType.TYPE_CLASS_NUMBER);
-        eTextGoals.setText("0");
+        eTextGoals.setText("" + goalsPlayer);
         /** !!!!!!!! TextWatcher adden!!!!!!!!! **/
         eTextGoals.addTextChangedListener(this.textWatcher);
+
+        if (this.selectedMatch.getTsTeam1().contains(player)) {
+            this.goalsTotalTeam1 += goalsPlayer;
+        }
+        else
+            if (this.selectedMatch.getTsTeam2().contains(player)) {
+                this.goalsTotalTeam2 += goalsPlayer;
+            }
 
         tr.addView(playerName);           //"anhängen" in Row
         tr.addView(eTextGoals);
@@ -185,9 +206,6 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
 
                 this.selectedMatch.setGoalsMadeTeam1(Integer.parseInt(this.txtResultTeam1.getText().toString()));
                 this.selectedMatch.setGoalsMadeTeam2(Integer.parseInt(this.txtResultTeam2.getText().toString()));
-
-                Toast toast = Toast.makeText(getApplicationContext(), "successfully saved", Toast.LENGTH_LONG);
-                toast.show();
 
                 // !!!! Listener !!!!!!!
                 if (listener != null)       //...to avoid null-pointer Exception (listener muss gesetzt sein (also der gui zugewiesen sein (siehe initOtherComponents)))
