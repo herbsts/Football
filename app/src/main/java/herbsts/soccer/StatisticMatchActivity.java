@@ -19,6 +19,7 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.EventListener;
 
 
 public class StatisticMatchActivity extends AppCompatActivity implements View.OnClickListener {
@@ -57,6 +58,20 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
             toast.show();
         }
     }
+
+    /***********Listener************/
+    public interface OnMatchResultChangedListener extends EventListener
+    {
+        void handleMatchResultChanged();
+    }
+
+    private static OnMatchResultChangedListener listener = null;            // !!! statisch
+
+    public static void addOnMatchResultChangedListener(OnMatchResultChangedListener l)
+    {
+        listener = l;
+    }
+    /***********************/
 
     private void getAllViews() throws Exception
     {
@@ -168,8 +183,20 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
                 this.saveResult(this.tblTeam1);
                 this.saveResult(this.tblTeam2);
 
+                this.selectedMatch.setGoalsMadeTeam1(Integer.parseInt(this.txtResultTeam1.getText().toString()));
+                this.selectedMatch.setGoalsMadeTeam2(Integer.parseInt(this.txtResultTeam2.getText().toString()));
+
                 Toast toast = Toast.makeText(getApplicationContext(), "successfully saved", Toast.LENGTH_LONG);
                 toast.show();
+
+                // !!!! Listener !!!!!!!
+                if (listener != null)       //...to avoid null-pointer Exception (listener muss gesetzt sein (also der gui zugewiesen sein (siehe initOtherComponents)))
+                {
+                    listener.handleMatchResultChanged();      //Listener ist ja in dem Fall die gui, also geht er zur Methode drüben
+                }
+
+                //Damit die Activity geschlossen wird
+                this.finish();
             }
         }
         catch (Exception e)

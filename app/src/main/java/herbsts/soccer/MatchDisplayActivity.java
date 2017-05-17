@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MatchDisplayActivity extends AppCompatActivity {
+public class MatchDisplayActivity extends AppCompatActivity implements StatisticMatchActivity.OnMatchResultChangedListener {
     /*
         non-gui-attributes
     */
@@ -54,6 +54,20 @@ public class MatchDisplayActivity extends AppCompatActivity {
     private void registrateEventhandlers() throws Exception
     {
         registerForContextMenu(lvMatch);            //Damit sich das Menü für Edit und Delete von den Matches aufklappt
+        /**********Listener (statisch implementiert, weil man ja NICHT die Instanz der StatisticMatchActivity zum registrieren hat**********/
+        StatisticMatchActivity.addOnMatchResultChangedListener(this);
+    }
+
+    @Override
+    public void handleMatchResultChanged() {
+        try {
+            this.makeMatchRows();
+        }
+        catch (Exception e)
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     //Makes rows with all Matches in the table
@@ -65,8 +79,6 @@ public class MatchDisplayActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        //this.selectedTableRow = v;
-
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.match_floating_context_menu, menu);
