@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/btnAdd"
-        android:layout_width="324dp"
-        android:layout_height="48dp"
+        android:layout_width="308dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="Add"
@@ -17,13 +17,16 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="11dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnUnassign" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        tools:layout_editor_absoluteY="463dp"
+        app:layout_constraintHorizontal_bias="0.508" />
 
     <DatePicker
+        style="@style/date_picker_theme"
         android:id="@+id/dpMatch"
-        android:layout_width="331dp"
-        android:layout_height="147dp"
+        android:layout_width="327dp"
+        android:layout_height="220dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
@@ -31,58 +34,68 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        app:layout_constraintHorizontal_bias="0.525" />
 
     <Button
         android:id="@+id/btnTeam1"
-        android:layout_width="148dp"
-        android:layout_height="45dp"
+        android:layout_width="136dp"
+        android:layout_height="39dp"
         android:text="Team1"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/btnTeam2"
         android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintHorizontal_bias="0.966"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnUnassign"
+        tools:layout_editor_absoluteY="378dp"
+        tools:layout_editor_absoluteX="40dp" />
 
     <Button
         android:id="@+id/btnTeam2"
         android:layout_width="151dp"
-        android:layout_height="44dp"
+        android:layout_height="40dp"
         android:text="Team2"
         android:layout_marginRight="43dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginEnd="43dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnUnassign"
+        tools:layout_editor_absoluteY="377dp" />
 
     <Button
         android:id="@+id/btnUnassign"
-        android:layout_width="322dp"
-        android:layout_height="48dp"
+        android:layout_width="307dp"
+        android:layout_height="37dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="13dp"
         android:text="Unassign"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTeam1" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
+        tools:layout_editor_absoluteX="50dp"
+        app:layout_constraintHorizontal_bias="0.522"
+        tools:layout_editor_absoluteY="418dp" />
 
     <ScrollView
         android:layout_width="330dp"
         android:layout_height="126dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/dpMatch"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/scrollView2">
+        android:id="@+id/scrollView2"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/dpMatch"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnTeam1"
+        app:layout_constraintVertical_bias="0.953">
 
         <LinearLayout
             android:layout_width="match_parent"

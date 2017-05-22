@@ -207,6 +207,10 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
                 this.selectedMatch.setGoalsMadeTeam1(Integer.parseInt(this.txtResultTeam1.getText().toString()));
                 this.selectedMatch.setGoalsMadeTeam2(Integer.parseInt(this.txtResultTeam2.getText().toString()));
 
+                for (Player p : this.selectedMatch.getTsTeam1()) {
+
+                }
+
                 // !!!! Listener !!!!!!!
                 if (listener != null)       //...to avoid null-pointer Exception (listener muss gesetzt sein (also der gui zugewiesen sein (siehe initOtherComponents)))
                 {
@@ -299,6 +303,7 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
                             //Damit man nicht 2 mal die gleiche Statistik haben kann
                             if (this.selectedMatch.getTsTeam1().ceiling(player).getTsStatistic().contains(statistic) == false)
                             {
+                                //!!!!! goalsHeadSnow wird für +/- Statistik verwendet
                                 statistic = new Statistic(this.selectedMatch, goals, 0, 0, 0, 0, 0);
                                 this.selectedMatch.getTsTeam1().ceiling(player).addStatistic(statistic);
                             }
