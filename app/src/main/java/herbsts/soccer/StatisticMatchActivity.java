@@ -195,7 +195,7 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
         return tr;
     }
 
-    //Erhöht die GESAMTEN Tore ganz oben in der Gui, wenn bei einem Player die Tore erhöht werden
+    //Erhöht die GESAMTEN Tore ganz oben in der Gui, wenn bei einem Player die Tore erhöht werden.
     @Override
     public void onClick(View v) {
         try {
