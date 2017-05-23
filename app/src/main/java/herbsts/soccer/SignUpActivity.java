@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -21,8 +22,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     gui-attributes
      */
     private EditText txtName = null;
-    private Spinner spPosition = null;
-    private ImageButton btnAddPlayer = null;
+    //private Spinner spPosition = null;
+    private Button btnAddPlayer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             this.db = Database.newInstance();
             this.getAllViews();
             this.registrateEventhandlers();
-            fillSpinnerPositions();
+            //fillSpinnerPositions();
 
         }
         catch (Exception e)
@@ -46,9 +47,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void getAllViews() throws Exception
     {
-        this.txtName = (EditText) findViewById(R.id.playerName);
-        this.spPosition = (Spinner) findViewById(R.id.playerPosition);
-        this.btnAddPlayer = (ImageButton) findViewById(R.id.addUser);
+        this.txtName = (EditText) findViewById(R.id.txtPlayerName);
+        //this.spPosition = (Spinner) findViewById(R.id.playerPosition);
+        this.btnAddPlayer = (Button) findViewById(R.id.btnLogin);
     }
 
     //e.g. onClick
@@ -57,13 +58,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         this.btnAddPlayer.setOnClickListener(this);
     }
 
+    /*
     private void fillSpinnerPositions() throws Exception
     {
         //Holt die Werte des Enums und füllt den Spinner
         ArrayAdapter<Position> adapterPositions = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Position.values());
         this.spPosition.setAdapter(adapterPositions);
     }
-
+    */
     @Override
     public void onClick(View view) {
         try
@@ -95,7 +97,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             /*
                             Position beim Player updaten, weil man die Position beim neuen Spieler ja auswählen kann
                              */
-                            boolean isGoalie = false, isDefender = false, isMidfielder = false, isForward = false;
+                            //boolean isGoalie = false, isDefender = false, isMidfielder = false, isForward = false;
+                            /*
                             String position = this.spPosition.getSelectedItem().toString();
 
                             switch (position)
@@ -113,8 +116,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                     isForward = true;
                                     break;
                             }
-
-                            newPlayer.updateProfile(isGoalie, isDefender, isMidfielder, isForward, true);
+                            */
+                            newPlayer.updateProfile(true, false, false, false, true);
 
                             /*
                             normales Login
