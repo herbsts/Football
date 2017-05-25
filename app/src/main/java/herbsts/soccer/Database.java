@@ -3,6 +3,8 @@ package herbsts.soccer;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
+import herbsts.soccer.pkgController.PlayerController;
+
 
 public class Database {
     private static Database database = null;
@@ -92,4 +94,28 @@ public class Database {
     {
         return this.tsMatches.remove(match);
     }
+
+    /***********WebService*************/
+    public boolean authPlayer(Player player) throws Exception {
+        boolean pExists = false;
+        String strFromWebService = null;
+        PlayerController controller = new PlayerController();
+        String[] params = new String[3];
+        params[0] = "POST";
+        params[1] = "player";
+
+        // jar-Datei gson ist am gandalf (pos/soccer), wie bindet man sie ein?
+        GSON gson = new GSON();
+        params[2] = gson.toJson(player);
+
+        controller.execute(params);
+        strFromWebService = controller.get();
+
+        if (strFromWebService != null) {
+            pExists = true;
+        }
+
+        return pExists;
+    }
+    /**********************************/
 }
