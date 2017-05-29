@@ -11,7 +11,8 @@ import java.util.TreeSet;
 public class Player implements Comparable<Player> {
     private int id = -1;
     private static int idCounter = 0;
-    private String name = "";
+    private String name = null;
+    private String password = null;
     private boolean isGoalie = false;
     private boolean isDefender = false;
     private boolean isMidFielder = false;
@@ -34,6 +35,11 @@ public class Player implements Comparable<Player> {
     public Player(String name)
     {
         this.name = name;
+    }
+
+    public Player(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
     public int getId() {

@@ -22,7 +22,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     gui-attributes
      */
     private EditText txtName = null;
-    //private Spinner spPosition = null;
+    private EditText txtPassword = null;
     private Button btnAddPlayer = null;
 
     @Override
@@ -35,7 +35,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             this.db = Database.newInstance();
             this.getAllViews();
             this.registrateEventhandlers();
-            //fillSpinnerPositions();
 
         }
         catch (Exception e)
@@ -48,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void getAllViews() throws Exception
     {
         this.txtName = (EditText) findViewById(R.id.txtPlayerName);
-        //this.spPosition = (Spinner) findViewById(R.id.playerPosition);
+        this.txtPassword = (EditText) findViewById(R.id.txtPlayerPassword);
         this.btnAddPlayer = (Button) findViewById(R.id.btnLogin);
     }
 
@@ -58,14 +57,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         this.btnAddPlayer.setOnClickListener(this);
     }
 
-    /*
-    private void fillSpinnerPositions() throws Exception
-    {
-        //Holt die Werte des Enums und füllt den Spinner
-        ArrayAdapter<Position> adapterPositions = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Position.values());
-        this.spPosition.setAdapter(adapterPositions);
-    }
-    */
     @Override
     public void onClick(View view) {
         try
@@ -73,70 +64,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             if (view == this.btnAddPlayer)
             {
                 //Überprüfung, dass ein Name eingegeben wurde
-                if (this.txtName.getText() != null)
+                if (this.txtName.getText().toString().length() > 0)
                 {
-                    if (!this.db.getTsPlayer().contains(new Player(this.txtName.getText().toString())))
+                    if (this.db.authPlayer(new Player(this.txtName.getText().toString(), this.txtPassword.getText().toString())))
                     {
                         /*
-                        Hinzufügen des neuen Players
+                        normales Login
                          */
-                        boolean helpReturn;
-
-                        String name = this.txtName.getText().toString();
-                        Player newPlayer = new Player(name, false, false, false, false, true);
-                        helpReturn = db.addPlayer(newPlayer);
-
-                        //Wenn Player nicht hinzugefügt wurde
-                        if (!helpReturn)
-                        {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Player not added. May it already exists.", Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                        else
-                        {
-                            /*
-                            Position beim Player updaten, weil man die Position beim neuen Spieler ja auswählen kann
-                             */
-                            //boolean isGoalie = false, isDefender = false, isMidfielder = false, isForward = false;
-                            /*
-                            String position = this.spPosition.getSelectedItem().toString();
-
-                            switch (position)
-                            {
-                                case "Goalie":
-                                    isGoalie = true;
-                                    break;
-                                case "Defender":
-                                    isDefender = true;
-                                    break;
-                                case "Midfielder":
-                                    isMidfielder = true;
-                                    break;
-                                case "Forward":
-                                    isForward = true;
-                                    break;
-                            }
-                            */
-                            newPlayer.updateProfile(true, false, false, false, true);
-
-                            /*
-                            normales Login
-                             */
-                            Intent intent = new Intent(this, MainGui.class);
-                            intent.putExtra("intentPlayerName", name);
-                            startActivity(intent);
-                        }
+                        Intent intent = new Intent(this, MainGui.class);
+                        intent.putExtra("intentPlayerName", this.txtName.getText().toString());
+                        startActivity(intent);
                     }
                     else
                     {
-                        /*
-                        normales Login ohne neuen Player hinzufügen
-                         */
-                        String playerName = this.txtName.getText().toString();
-
-                        Intent intent = new Intent(this, MainGui.class);
-                        intent.putExtra("intentPlayerName", playerName);
-                        startActivity(intent);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Please enter a name.", Toast.LENGTH_LONG);
+                        toast.show();
                     }
                 }
                 else

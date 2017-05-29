@@ -1,5 +1,7 @@
 package herbsts.soccer;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -100,13 +102,10 @@ public class Database {
         boolean pExists = false;
         String strFromWebService = null;
         PlayerController controller = new PlayerController();
-        String[] params = new String[3];
+        Object[] params = new Object[3];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
         params[0] = "POST";
-        params[1] = "player";
-
-        // jar-Datei gson ist am gandalf (pos/soccer), wie bindet man sie ein?
-        GSON gson = new GSON();
-        params[2] = gson.toJson(player);
+        params[1] = "player/auth";
+        params[2] = player;
 
         controller.execute(params);
         strFromWebService = controller.get();
