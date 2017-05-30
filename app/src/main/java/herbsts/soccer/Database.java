@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import herbsts.soccer.pkgController.PlayerController;
+import herbsts.soccer.pkgData.Match;
+import herbsts.soccer.pkgData.Player;
 
 
 public class Database {
@@ -45,11 +47,6 @@ public class Database {
     {
         return this.tsPlayer.add(player);
     }
-
-    /*public boolean removePlayer(Player player) throws Exception
-    {
-        return this.tsPlayer.remove(player);
-    }*/
 
     //Braucht man bei ProfileActivity, um den Spinner mit der jeweiligen Position des Players setzen. Man liefert zwar einen Player als Parameter
     //aber dieser ist nur ein Phantom mit dem gleichen Namen und anhand der ceiling-Methode (vergleicht ja mit der compareTo() ) bekommt man
@@ -113,7 +110,6 @@ public class Database {
         if (strFromWebService != null) {
             pExists = true;
         }
-
         return pExists;
     }
     /**********************************/

@@ -1,16 +1,11 @@
 package herbsts.soccer;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
-import herbsts.soccer.R;
 
 public class MainGui extends AppCompatActivity implements View.OnClickListener {
     /*
@@ -31,12 +26,12 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
         try
         {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main_gui);
+            setContentView(R.layout.main);
 
             //Namen aus Intent holen
             this.setContent();
             //Titel setzen
-            this.setTitle(this.playerName);
+            //this.setTitle(this.playerName);
 
             this.getAllViews();
             this.registrateEventhandlers();
@@ -77,13 +72,13 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
             if (view == this.btnStatistic)
             {
                 Intent intent = new Intent(this, StatisticPlayerActivity.class);
-                intent.putExtra("intentPlayerName", this.playerName);
+                //intent.putExtra("intentPlayerName", this.playerName);
                 startActivity(intent);
             }
             else if (view == this.btnProfile)
             {
                 Intent intent = new Intent(this, ProfileActivity.class);
-                intent.putExtra("intentPlayerName", this.playerName);
+                //intent.putExtra("intentPlayerName", this.playerName);
                 startActivity(intent);
             }
             else if (view == this.btnCalendar)

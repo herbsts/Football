@@ -1,7 +1,6 @@
 package herbsts.soccer;
 
 import android.graphics.Color;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,11 +14,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EventListener;
+
+import herbsts.soccer.pkgData.Match;
+import herbsts.soccer.pkgData.Player;
+import herbsts.soccer.pkgData.Statistic;
 
 
 public class StatisticMatchActivity extends AppCompatActivity implements View.OnClickListener {
@@ -169,9 +170,9 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
         /**Statistic holen, weil wenn man Match zum 2. Mal bearbeitet, kann es ja sein, dass ein Player schon Tore gespeichert hat, und die müssen dann wieder angezeigt werden**/
         int goalsPlayer = 0;
 
-        if (player.getTsStatistic().contains(new Statistic(this.selectedMatch)))
+        if (player.getStatistics().containsKey(this.selectedMatch.getId()))
         {
-            Statistic stat = player.getTsStatistic().ceiling(new Statistic(this.selectedMatch));
+            Statistic stat = player.getStatistic(this.selectedMatch.getId());
             goalsPlayer = stat.getGoalsShot();
         }
 
@@ -204,8 +205,8 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
                 this.saveResult(this.tblTeam1);
                 this.saveResult(this.tblTeam2);
 
-                this.selectedMatch.setGoalsMadeTeam1(Integer.parseInt(this.txtResultTeam1.getText().toString()));
-                this.selectedMatch.setGoalsMadeTeam2(Integer.parseInt(this.txtResultTeam2.getText().toString()));
+                this.selectedMatch.setGoalsTeam1(Integer.parseInt(this.txtResultTeam1.getText().toString()));
+                this.selectedMatch.setGoalsTeam2(Integer.parseInt(this.txtResultTeam2.getText().toString()));
 
                 for (Player p : this.selectedMatch.getTsTeam1()) {
 
@@ -296,23 +297,23 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
 
                         /*** Player updaten ***/
                         Player player = new Player(playerName);
-                        Statistic statistic = new Statistic(this.selectedMatch);
+                        Statistic statistic = new Statistic(this.selectedMatch.getId());
 
                         if (tblTeam == this.tblTeam1)
                         {
                             //Damit man nicht 2 mal die gleiche Statistik haben kann
-                            if (this.selectedMatch.getTsTeam1().ceiling(player).getTsStatistic().contains(statistic) == false)
+                            if (this.selectedMatch.getTsTeam1().ceiling(player).getStatistics().containsKey(selectedMatch.getId()) == false)
                             {
                                 //!!!!! goalsHeadSnow wird für +/- Statistik verwendet
-                                statistic = new Statistic(this.selectedMatch, goals, 0, 0, 0, 0, 0);
-                                this.selectedMatch.getTsTeam1().ceiling(player).addStatistic(statistic);
+                                statistic = new Statistic(this.selectedMatch.getId(), goals, 0, 0, 0, 0, 0);
+                                this.selectedMatch.getTsTeam1().ceiling(player).addStatistic(selectedMatch.getId(),statistic);
                             }
                         }
                         else
                             if (tblTeam == this.tblTeam2)
                             {
-                                statistic = new Statistic(this.selectedMatch, goals, 0, 0, 0, 0, 0);
-                                this.selectedMatch.getTsTeam2().ceiling(player).addStatistic(statistic);
+                                statistic = new Statistic(this.selectedMatch.getId(), goals, 0, 0, 0, 0, 0);
+                                this.selectedMatch.getTsTeam2().ceiling(player).addStatistic(selectedMatch.getId(),statistic);
                             }
                     }
                 }

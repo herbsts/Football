@@ -6,11 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TreeSet;
 
+import herbsts.soccer.pkgData.Player;
+import herbsts.soccer.pkgData.Statistic;
+
 /**
  * Created by Lorenz on 18.03.2017.
  */
 
-public class Match implements Comparable<Match> {
+public class matchbackup implements Comparable<matchbackup> {
     private int id = -1;
     private static int idCounter = 0;
     private Date date = null;
@@ -21,7 +24,7 @@ public class Match implements Comparable<Match> {
     private TreeSet<Player> tsTeam2 = null;
     private TreeSet<Statistic> tsStatistics = null;
 
-    public Match(Date date, int goalsMadeTeam1, int goalsMadeTeam2, TreeSet<Player> tsTeam1, TreeSet<Player> tsTeam2, TreeSet<Statistic> tsStatistics) {
+    public matchbackup(Date date, int goalsMadeTeam1, int goalsMadeTeam2, TreeSet<Player> tsTeam1, TreeSet<Player> tsTeam2, TreeSet<Statistic> tsStatistics) {
         this.id = ++idCounter;
         this.date = date;
         this.goalsMadeTeam1 = goalsMadeTeam1;
@@ -32,7 +35,7 @@ public class Match implements Comparable<Match> {
     }
 
     //!!!!!ACHTUNG: Nicht für ein "normales" Match verwenden, sondern nur für ceiling() vom TreeSet in StatisticMatchActivity
-    public Match(Date date)
+    public matchbackup(Date date)
     {
         this.date = date;
     }
@@ -104,7 +107,7 @@ public class Match implements Comparable<Match> {
     }
 
     @Override
-    public int compareTo(@NonNull Match m) {
+    public int compareTo(@NonNull matchbackup m) {
         return this.date.compareTo(m.getDate());
     }
 }

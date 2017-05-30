@@ -17,6 +17,8 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import herbsts.soccer.pkgData.Match;
+
 public class MatchDisplayActivity extends AppCompatActivity implements StatisticMatchActivity.OnMatchResultChangedListener {
     /*
         non-gui-attributes
@@ -114,7 +116,7 @@ public class MatchDisplayActivity extends AppCompatActivity implements Statistic
                     Date date = sdf.parse(dateString);
 
                     //Match hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
-                    final Match selectedMatch = this.db.getTsMatches().ceiling(new Match(date, -1, -1, null, null, null));
+                    final Match selectedMatch = this.db.getTsMatches().ceiling(new Match(date));
 
                     /**********Alert Dialog************/
 
