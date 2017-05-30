@@ -1,7 +1,11 @@
 package herbsts.soccer;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.TreeSet;
+
+import herbsts.soccer.pkgController.PlayerController;
 
 
 public class Database {
@@ -92,4 +96,25 @@ public class Database {
     {
         return this.tsMatches.remove(match);
     }
+
+    /***********WebService*************/
+    public boolean authPlayer(Player player) throws Exception {
+        boolean pExists = false;
+        String strFromWebService = null;
+        PlayerController controller = new PlayerController();
+        Object[] params = new Object[3];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
+        params[0] = "POST";
+        params[1] = "player/auth";
+        params[2] = player;
+
+        controller.execute(params);
+        strFromWebService = controller.get();
+
+        if (strFromWebService != null) {
+            pExists = true;
+        }
+
+        return pExists;
+    }
+    /**********************************/
 }
