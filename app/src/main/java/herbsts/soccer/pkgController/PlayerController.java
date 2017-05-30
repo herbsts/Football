@@ -51,6 +51,7 @@ public class PlayerController extends AsyncTask<Object, Void, String> {
                     os.close();
                     conn.disconnect();
 
+
 /*
                     url = new URL(URI_FIX + command[1]);
                     //send data to server
