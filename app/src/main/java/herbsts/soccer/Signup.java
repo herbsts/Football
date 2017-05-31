@@ -89,7 +89,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         {
             Toast toast = Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
             toast.show();
-            e.printStackTrace();
         }
     }
 }

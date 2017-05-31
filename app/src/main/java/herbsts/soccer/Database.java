@@ -1,7 +1,9 @@
 package herbsts.soccer;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -117,6 +119,29 @@ public class Database {
         controller.execute(params);
         playerFromWebservice = gson.fromJson(controller.get(), Player.class);
 
-        return (playerFromWebservice.getId() != -1);
+        return (playerFromWebservice.getId() != -1);            //Weil wenn id -1 ist, stimmen die Login-Daten nicht
+    }
+
+    public ArrayList<Player> getAllPlayer() throws Exception {
+        PlayerController controller = new PlayerController();
+        String result = null;
+        ArrayList<Player> arrListPlayer = null;
+
+        Object[] params = new Object[2];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
+
+        params[0] = "GET";
+        params[1] = "player";
+
+        controller.execute(params);
+        result = controller.get();
+
+        if(result == null){
+            throw new Exception("webservice problem (getAllPlayers)");
+        }
+
+        Type playerListType = new TypeToken<ArrayList<Player>>(){}.getType();       //Erstellt den Typ den wir brauchen (ArrayList)
+        arrListPlayer = gson.fromJson(result, playerListType);          //Wandelt den Json-String in eine ArrayList um
+
+        return arrListPlayer;
     }
 }

@@ -31,6 +31,7 @@ public class PlayerController extends AsyncTask<Object, Void, String> {
 
         try {
             if (command[0].equals("POST")) {
+                //Returned den gefundenen Player, wenn die Login-Daten übereinstimmen, bzw. einen Player mit id = -1, wenn die Login-Daten nicht stimmen
                 if (command[1].equals("player/auth")) {
                     String newPlayer = gson.toJson(command[2]);
                     url = new URL(URI_FIX + command[1]);
@@ -60,6 +61,25 @@ public class PlayerController extends AsyncTask<Object, Void, String> {
                     urlConnection.disconnect();
                 }
             }
+            else
+                if (command[0].equals("GET")) {
+                    //Returned einen String, bestehend aus einer Liste aller Player
+                    if (command[1].equals("player")) {
+                        url = new URL(URI_FIX + command[1]);
+                        URLConnection conn = url.openConnection();
+
+                        reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        StringBuilder sb = new StringBuilder();
+                        String line = null;
+
+                        while((line = reader.readLine()) != null) {
+                            sb.append(line);
+                        }
+
+                        response = sb.toString();
+                        reader.close();
+                    }
+                }
         }
         catch (Exception e) {
             e.printStackTrace();
