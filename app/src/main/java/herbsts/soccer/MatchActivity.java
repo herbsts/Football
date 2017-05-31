@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TreeSet;
@@ -167,14 +168,19 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     }
 
     //Make the rows with all Players in the table
-    private void makePlayerRows()
+    private void makePlayerRows() throws Exception
     {
+        /*
+        Webservice aufrufen
+         */
+        ArrayList<Player> arrListPlayer = this.db.getAllPlayer();
+
         //DOM-Baum-ähnliches "anhängen" der Elemente in die Gui
-        for (Player player : this.db.getTsPlayer())
+        for (Player player : arrListPlayer)
         {
             //Nur jene werden angezeigt, die zur Zeit auch spielbereit sind
-            if (player.isActive())
-            {
+            //if (player.isActive())
+            //{
                 TableRow tr = new TableRow(this);
                 TableRow.LayoutParams tblRowLp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
                 tr.setLayoutParams(tblRowLp);
@@ -192,7 +198,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
 
                 //row in table "anhängen"
                 this.tblPlayer.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
-            }
+            //}
         }
     }
 

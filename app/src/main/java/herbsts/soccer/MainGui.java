@@ -31,7 +31,7 @@ public class MainGui extends AppCompatActivity implements View.OnClickListener {
             //Namen aus Intent holen
             this.setContent();
             //Titel setzen
-            //this.setTitle(this.playerName);
+            this.setTitle(this.playerName);
 
             this.getAllViews();
             this.registrateEventhandlers();
