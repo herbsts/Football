@@ -13,11 +13,13 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by Lorenz on 24.05.2017.
+ * Created by Lorenz Fritz
+ * Written by Stefan Herbst and Lorenz Fritz
+ * Last edit by Stefan Herbst on 31.05.2017: Finished "player/auth"
  */
 
 public class PlayerController extends AsyncTask<Object, Void, String> {
-    private static final String URI_FIX = "http://192.168.142.143/Soccer_Webservice/resources/";
+    private static final String URI_FIX = "http://192.168.142.143:8080/Soccer_Webservice/resources/";
 
     @Override
     protected String doInBackground(Object... command) {
@@ -25,55 +27,43 @@ public class PlayerController extends AsyncTask<Object, Void, String> {
         BufferedWriter writer = null;
         String response = null;
         URL url = null;
-        Gson gson = null;
+        Gson gson = new Gson();
 
         try {
             if (command[0].equals("POST")) {
                 if (command[1].equals("player/auth")) {
-                    OutputStream os = null;
-                    gson = new Gson();
-                    String playerString = gson.toJson(command[2]);          // ACHTUNG: Kann NUR in Klasse MIT 'extends AsynchTask<>' gemacht werden
-
+                    String newPlayer = gson.toJson(command[2]);
                     url = new URL(URI_FIX + command[1]);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setDoOutput(true);
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Content-Type", "application/json");
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
 
-                    byte[] outputBytes = playerString.getBytes("UTF-8");
-                    conn.setRequestProperty("Content-Length", Integer.toString(outputBytes.length));
-                    os = conn.getOutputStream();
+                    byte[] outputBytes = newPlayer.getBytes("UTF-8");
+                    urlConnection.setRequestProperty("Content-Length", Integer.toString(outputBytes.length));
+                    OutputStream os = urlConnection.getOutputStream();
                     os.write(outputBytes);
 
-                    response = Integer.toString(conn.getResponseCode());
-
-                    os.flush();
-                    os.close();
-                    conn.disconnect();
-
-
-/*
-                    url = new URL(URI_FIX + command[1]);
-                    //send data to server
-                    URLConnection conn = url.openConnection();
-                    //get data from server
-                    reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
+                    reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     StringBuilder sb = new StringBuilder();
                     String line = null;
 
-                    while ((line = reader.readLine()) != null) {
+                    while((line = reader.readLine()) != null) {
                         sb.append(line);
                     }
 
-                    content = sb.toString();*/
+                    response = sb.toString();
+
+                    os.flush();
+                    os.close();
+                    reader.close();
+                    urlConnection.disconnect();
                 }
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-
         return response;
     }
 }

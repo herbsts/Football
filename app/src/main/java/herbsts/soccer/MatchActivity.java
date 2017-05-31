@@ -1,7 +1,6 @@
 package herbsts.soccer;
 
 import android.graphics.Color;
-import android.icu.text.TimeZoneFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +15,10 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 import java.util.TreeSet;
+
+import herbsts.soccer.pkgData.Match;
+import herbsts.soccer.pkgData.Player;
 
 public class MatchActivity extends AppCompatActivity implements View.OnClickListener{
     /*
@@ -151,7 +152,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                             String dateNewString = simpleDateFormat.format(date);
                             date = simpleDateFormat.parse(dateNewString);
 
-                            Match match = new Match(date, -1, -1, this.tsTeam1, this.tsTeam2, null);
+                            Match match = new Match(date);
                             this.db.addMatch(match);
 
                             //Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist

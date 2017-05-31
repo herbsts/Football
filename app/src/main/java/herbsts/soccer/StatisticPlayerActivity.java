@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.TreeSet;
+import java.util.HashMap;
+
+import herbsts.soccer.pkgData.Player;
+import herbsts.soccer.pkgData.Statistic;
 
 public class StatisticPlayerActivity extends AppCompatActivity {
     /*
@@ -28,8 +31,8 @@ public class StatisticPlayerActivity extends AppCompatActivity {
             setContentView(R.layout.activity_statistic_player);
             this.db = Database.newInstance();
             this.getAllViews();
-            this.setContent();
-            this.fillStatistic();
+            //this.setContent();
+            //this.fillStatistic();
         }
         catch (Exception e)
         {
@@ -53,10 +56,10 @@ public class StatisticPlayerActivity extends AppCompatActivity {
 
     private int getGoalsShotStatistic() throws Exception {
         int goalsShot = 0;
-
-        for (Statistic statistic : this.player.getTsStatistic())
+        int size = player.getStatistics().size();
+        for (int i = 0; i < size; i++)
         {
-            goalsShot += statistic.getGoalsShot();
+            goalsShot += player.getStatistic(i).getGoalsShot();
         }
 
         return goalsShot;

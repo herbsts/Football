@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundnew">
+
+    <ImageButton
+        android:id="@+id/addOrUploadPhoto"
+        android:layout_width="118dp"
+        android:layout_height="114dp"
+        app:srcCompat="@drawable/addphoto"
+        android:background="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="58dp"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:tint="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/profile"
+        android:tint="@android:color/background_light"
+        android:layout_marginEnd="14dp"
+        tools:layout_editor_absoluteX="45dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/addOrUploadPhoto" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/email"
+        android:tint="@android:color/background_light"
+        tools:layout_editor_absoluteX="45dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/password"
+        android:tint="@android:color/background_light"
+        tools:layout_editor_absoluteX="45dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/position"
+        android:tint="@android:color/background_light"
+        tools:layout_editor_absoluteX="45dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+    <ImageButton
+        android:id="@+id/addUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:background="@null"
+        app:srcCompat="@drawable/adduser"
+        android:tint="@android:color/background_light"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/playerPosition"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/txtPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Name"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:textAllCaps="false"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/addOrUploadPhoto"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="36dp"
+        app:layout_constraintLeft_toRightOf="@+id/imageView7"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="1.0" />
+
+    <EditText
+        android:id="@+id/playerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:hint="eMail"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtPlayerName"
+        app:layout_constraintLeft_toRightOf="@+id/imageView8"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <EditText
+        android:id="@+id/txtPlayerPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/playerEmail"
+        app:layout_constraintLeft_toRightOf="@+id/imageView9"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <!-- android:entries="@array/position" fills Spinner with values from strings.xml string-array name="position"-->
+    <Spinner
+        android:id="@+id/playerPosition"
+        android:layout_width="160dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginStart="62dp"
+        android:entries="@array/position"
+        android:touchscreenBlocksFocus="true"
+        android:layout_marginTop="14dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtPlayerPassword"
+        app:layout_constraintLeft_toRightOf="@+id/imageView10"
+        android:layout_marginLeft="8dp" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:background="@null"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/backarrow"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1"
+        android:tint="@android:color/background_light" />
+
+</android.support.constraint.ConstraintLayout>
