@@ -18,16 +18,16 @@ public class Player implements Comparable<Player> {
     private transient boolean isMidFielder = false;
     private transient boolean isForward = false;
     private boolean isActive = true;
-    private boolean isAdmin = false;
+    private int isAdmin = 0;
     private int wins = -1;
     private int losses = -1;
     private int tieds = -1;
     private int goalDifference = -1;
 
     private TreeSet<Match> tsMatches = null;
-    private HashMap<Integer, Statistic> hmStatistics = null;
+    private HashMap<Integer, Statistic> hmStatistics = null; //<matchID, Statistic>
 
-    public Player(String name, String password, boolean isGoalie, boolean isMidFielder, boolean isDefender, boolean isForward, boolean isAdmin) {
+    public Player(String name, String password, boolean isGoalie, boolean isMidFielder, boolean isDefender, boolean isForward, int isAdmin) {
         this.name = name;
         this.password = password;
         this.isGoalie = isGoalie;
@@ -49,7 +49,7 @@ public class Player implements Comparable<Player> {
     {
         this.name = name;
     }
-    public Player(String name, String password){this.name = name; this.password = password;}
+    public Player(String name, String password){this.id = -1; this.name = name; this.password = password;}
 
     public int getId() {
         return id;
@@ -151,5 +151,4 @@ public class Player implements Comparable<Player> {
     public int compareTo(@NonNull Player p) {
         return this.name.compareTo(p.getName());
     }
-
 }

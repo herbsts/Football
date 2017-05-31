@@ -9,11 +9,17 @@ import herbsts.soccer.pkgController.PlayerController;
 import herbsts.soccer.pkgData.Match;
 import herbsts.soccer.pkgData.Player;
 
+/**
+ * Created by Lorenz Fritz
+ * Written by Stefan Herbst and Lorenz Fritz
+ * Last edit by Stefan Herbst on 31.05.2017: Finished authPlayer()
+ */
 
 public class Database {
     private static Database database = null;
     private TreeSet<Player> tsPlayer = null;
     private TreeSet<Match> tsMatches = null;
+    private Gson gson = new Gson();
 
     //Muss private sein, weil es darf ja nur von newInstance() aufgerufen werden, wegen Singleton
     private Database()
@@ -94,23 +100,23 @@ public class Database {
         return this.tsMatches.remove(match);
     }
 
-    /***********WebService*************/
+/**************************************************************************************************/
+
+    /**
+     *Webservice Methods
+     */
     public boolean authPlayer(Player player) throws Exception {
-        boolean pExists = false;
-        String strFromWebService = null;
         PlayerController controller = new PlayerController();
+        Player playerFromWebservice = null;
         Object[] params = new Object[3];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
+
         params[0] = "POST";
         params[1] = "player/auth";
         params[2] = player;
 
         controller.execute(params);
-        strFromWebService = controller.get();
+        playerFromWebservice = gson.fromJson(controller.get(), Player.class);
 
-        if (strFromWebService != null) {
-            pExists = true;
-        }
-        return pExists;
+        return (playerFromWebservice.getId() != -1);
     }
-    /**********************************/
 }

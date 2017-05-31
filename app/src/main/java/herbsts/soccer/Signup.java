@@ -10,15 +10,20 @@ import android.widget.Toast;
 
 import herbsts.soccer.pkgData.Player;
 
+/**
+ * Created by Lorenz Fritz
+ * Written by Stefan Herbst and Lorenz Fritz
+ * Last edit by Stefan Herbst on 31.05.2017: Finished Login via Webservice
+ */
 
 public class Signup extends AppCompatActivity implements View.OnClickListener {
     /*
-    non-gui-attributes
+     *non-gui-attributes
      */
     private Database db = null;
 
     /*
-    gui-attributes
+     *gui-attributes
      */
     private EditText txtName = null;
     private EditText txtPlayerPassword = null;

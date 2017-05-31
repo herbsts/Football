@@ -13,7 +13,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by Lorenz on 24.05.2017.
+ * Created by Lorenz Fritz
+ * Written by Stefan Herbst and Lorenz Fritz
+ * Last edit by Stefan Herbst on 31.05.2017: Finished "player/auth"
  */
 
 public class PlayerController extends AsyncTask<Object, Void, String> {
@@ -31,15 +33,14 @@ public class PlayerController extends AsyncTask<Object, Void, String> {
             if (command[0].equals("POST")) {
                 if (command[1].equals("player/auth")) {
                     String newPlayer = gson.toJson(command[2]);
-
                     url = new URL(URI_FIX + command[1]);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setDoOutput(true);
                     urlConnection.setRequestMethod("POST");
-                    //urlConnection.setRequestProperty("Content-Type", "application/json");
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
 
                     byte[] outputBytes = newPlayer.getBytes("UTF-8");
-                    //urlConnection.setRequestProperty("Content-Length", Integer.toString(outputBytes.length));
+                    urlConnection.setRequestProperty("Content-Length", Integer.toString(outputBytes.length));
                     OutputStream os = urlConnection.getOutputStream();
                     os.write(outputBytes);
 
@@ -53,36 +54,16 @@ public class PlayerController extends AsyncTask<Object, Void, String> {
 
                     response = sb.toString();
 
-                    response = Integer.toString(urlConnection.getResponseCode());
-                    System.out.println("***********************************"+response+"***********************************");
                     os.flush();
                     os.close();
                     reader.close();
                     urlConnection.disconnect();
-
-
-/*
-                    url = new URL(URI_FIX + command[1]);
-                    //send data to server
-                    URLConnection conn = url.openConnection();
-                    //get data from server
-                    reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-                    StringBuilder sb = new StringBuilder();
-                    String line = null;
-
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line);
-                    }
-
-                    content = sb.toString();*/
                 }
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-
         return response;
     }
 }
