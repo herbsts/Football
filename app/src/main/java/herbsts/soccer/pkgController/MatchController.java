@@ -31,6 +31,7 @@ public class MatchController extends AsyncTask<Object, Void, String> {
 
         try {
             if (command[0].equals("POST")) {
+                //Added ein Match und
                 //Returned das geaddete Match, wenn die Daten passen bzw ein Match mit id = -1, wenn die Daten nicht stimmen.
                 if (command[1].equals("match")) {
                     String newMatch = gson.toJson(command[2]);
@@ -59,6 +60,25 @@ public class MatchController extends AsyncTask<Object, Void, String> {
                     os.close();
                     reader.close();
                     httpUrlConnection.disconnect();
+                }
+            }
+            else
+            if (command[0].equals("GET")) {
+                //Returned alle Matches
+                if (command[1].equals("match")) {
+                    url = new URL(URI_FIX + command[1]);
+                    URLConnection conn = url.openConnection();
+
+                    reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+
+                    while((line = reader.readLine()) != null) {
+                        sb.append(line);
+                    }
+
+                    response = sb.toString();       //alle matches im response
+                    reader.close();
                 }
             }
         }

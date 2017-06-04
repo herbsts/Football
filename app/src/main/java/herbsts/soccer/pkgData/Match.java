@@ -12,7 +12,7 @@ import java.util.TreeSet;
 
 public class Match implements Comparable<Match> {
     private int id = -1;
-    private String firmDate = null;
+    private String firmDate = null;     //String, weil sonst Webservice nicht geht
     private int goalsA = 0;
     private int goalsB = 0;
     private transient TreeSet<Player> tsTeam1 = null;
@@ -73,9 +73,9 @@ public class Match implements Comparable<Match> {
 
     @Override
     public String toString() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");
         //SimpleDateFormat simpleDateFormatWebservice = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(firmDate) + ", " + goalsA + ":" + goalsB;
+        return firmDate + ", " + goalsA + ":" + goalsB;
     }
 
     @Override

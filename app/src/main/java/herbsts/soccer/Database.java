@@ -127,14 +127,13 @@ public class Database {
         PlayerController controller = new PlayerController();
         String result = null;
         ArrayList<Player> arrListPlayer = null;
-
         Object[] params = new Object[2];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
 
         params[0] = "GET";
         params[1] = "player";
 
         controller.execute(params);
-        result = controller.get();
+        result = controller.get();          //json-String im result speichern
 
         if(result == null){
             throw new Exception("webservice problem (getAllPlayers)");
@@ -159,6 +158,28 @@ public class Database {
         matchFromWebservice = gson.fromJson(controller.get(), Match.class);
 
         return (matchFromWebservice.getId() != -1);            //Weil wenn id -1 ist, stimmen die Daten nicht
+    }
+
+    public ArrayList<Match> getAllMatchesWebservice() throws Exception {
+        MatchController controller = new MatchController();
+        String result = null;
+        ArrayList<Match> arrListMatches = null;
+        Object[] params = new Object[2];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
+
+        params[0] = "GET";
+        params[1] = "match";
+
+        controller.execute(params);
+        result = controller.get();
+
+        if(result == null){
+            throw new Exception("webservice problem (getAllMatches)");
+        }
+
+        Type matchListType = new TypeToken<ArrayList<Match>>(){}.getType();       //Erstellt den Typ den wir brauchen (ArrayList)
+        arrListMatches = gson.fromJson(result, matchListType);          //Wandelt den Json-String in eine ArrayList um
+
+        return arrListMatches;
     }
 
 /**************************************************************************************************/

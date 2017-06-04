@@ -72,10 +72,10 @@ public class MatchDisplayActivity extends AppCompatActivity implements Statistic
         }
     }
 
-    //Makes rows with all Matches in the table
+    //Makes rows with all Matches in the list
     private void makeMatchRows() throws Exception
     {
-        ArrayAdapter<Match> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.db.getArrayListMatches());
+        ArrayAdapter<Match> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.db.getAllMatchesWebservice());
         this.lvMatch.setAdapter(arrayAdapter);
     }
 
