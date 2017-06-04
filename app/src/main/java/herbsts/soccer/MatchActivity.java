@@ -28,6 +28,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     private Database db = null;
     private TreeSet<Player> tsTeam1 = null;
     private TreeSet<Player> tsTeam2 = null;
+    private TreeSet<Player> tsAllPlayers = null;        // !!! Damit man die Daten der Player (Password brauchen wir) gespeichert hat, weil man dann bei der Teamzuweisung das Passwort bräuchte um den Player vom Webservice zu holen und in der List-Anzeige ja nur der Name steht.
 
     /*
     gui-attributes
@@ -47,6 +48,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             setContentView(R.layout.activity_match);
             this.tsTeam1 = new TreeSet<>();
             this.tsTeam2 = new TreeSet<>();
+            this.tsAllPlayers = new TreeSet<>();
             this.db = Database.newInstance();
             this.getAllViews();
             this.registrateEventhandlers();
@@ -84,7 +86,8 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             {
                 // !!! Table-Lenght speichern, weil er sonst nachher in der Schleife die Table ja immer um 1 Row verringert, wenn ein Spieler einem Team hinzugefügt wird
                 // und man somit nicht mehr durch alle Spieler, sondern nur die Hälfte durchgehen würde
-                int tblLength = this.tblPlayer.getChildCount(), counterSelectedPlayer = 0;
+                int tblLength = 0, counterSelectedPlayer = 0;
+                tblLength = this.tblPlayer.getChildCount();
 
                 //Alle Zeilen der Table durchgehen
                 for(int i = 0; i < tblLength; i++) {
@@ -173,7 +176,8 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         /*
         Webservice aufrufen
          */
-        ArrayList<Player> arrListPlayer = this.db.getAllPlayer();
+        ArrayList<Player> arrListPlayer = this.db.getAllPlayersWebservice();
+        this.tsAllPlayers = new TreeSet<>(arrListPlayer);
 
         //DOM-Baum-ähnliches "anhängen" der Elemente in die Gui
         for (Player player : arrListPlayer)
@@ -202,7 +206,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private Player getPlayerOfTable(View viewRow)
+    private Player getPlayerOfTable(View viewRow) throws Exception
     {
         Player player = null;
 
@@ -227,7 +231,7 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                         TextView textViewPlayer = (TextView) viewTextView;
 
                         //Player hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
-                        player = this.db.getTsPlayer().ceiling(new Player(textViewPlayer.getText().toString()));
+                        player = this.tsAllPlayers.ceiling(new Player(textViewPlayer.getText().toString()));
 
                         //Row aus Table entfernen!!!
                         this.tblPlayer.removeView(row);

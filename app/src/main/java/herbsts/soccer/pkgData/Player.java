@@ -45,10 +45,7 @@ public class Player implements Comparable<Player> {
     }
 
     //!!!!!ACHTUNG: Nicht für einen "normalen" Spieler verwenden, sondern nur für ceiling() vom TreeSet in ProfileActivity
-    public Player(String name)
-    {
-        this.name = name;
-    }
+    public Player(String name) { this.id = -1; this.name = name; }
     public Player(String name, String password){this.id = -1; this.name = name; this.password = password;}
 
     public int getId() {

@@ -122,7 +122,7 @@ public class Database {
         return (playerFromWebservice.getId() != -1);            //Weil wenn id -1 ist, stimmen die Login-Daten nicht
     }
 
-    public ArrayList<Player> getAllPlayer() throws Exception {
+    public ArrayList<Player> getAllPlayersWebservice() throws Exception {
         PlayerController controller = new PlayerController();
         String result = null;
         ArrayList<Player> arrListPlayer = null;
@@ -144,4 +144,6 @@ public class Database {
 
         return arrListPlayer;
     }
+
+/**************************************************************************************************/
 }

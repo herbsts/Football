@@ -19,7 +19,7 @@ import java.net.URLConnection;
  */
 
 public class PlayerController extends AsyncTask<Object, Void, String> {
-    private static final String URI_FIX = "http://192.168.142.143:8080/Soccer_Webservice/resources/";
+    private static final String URI_FIX = "http://212.152.179.116:8080/Soccer_Webservice/resources/";       //interne IP: 192.168.142.143    externe IP: 212.152.179.116
 
     @Override
     protected String doInBackground(Object... command) {
