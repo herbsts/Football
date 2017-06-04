@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
 
 import herbsts.soccer.pkgData.Match;
 import herbsts.soccer.pkgData.Player;
@@ -147,17 +148,22 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
                     else
                         if (view == this.btnAdd)
                         {
-                            //SimpleDateFormat simpleDateFormatOld = new SimpleDateFormat("yyyy-MM-dd");
-                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");
+                            boolean matchAdded = false;
+                            SimpleDateFormat simpleDateFormatWebservice = new SimpleDateFormat("yyyy-MM-dd");        //E, dd.MM.yyyy (better readabilty, but incompatible with webservice)
+                            //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");
                             Calendar c = Calendar.getInstance();
 
                             c.set(this.dpMatch.getYear(), this.dpMatch.getMonth(), this.dpMatch.getDayOfMonth());
                             Date date = c.getTime();
-                            String dateNewString = simpleDateFormat.format(date);
-                            date = simpleDateFormat.parse(dateNewString);
+                            String dateNewString = simpleDateFormatWebservice.format(date);
+                            //date = simpleDateFormatWebservice.parse(dateNewString);
 
-                            Match match = new Match(date);
-                            this.db.addMatch(match);
+                            Match match = new Match(dateNewString);
+                            matchAdded = this.db.addMatchWebservice(match);      // !!! Webservice
+
+                            if (matchAdded == false) {
+                                throw new Exception("Match creation failed.");
+                            }
 
                             //Damit die Activity geschlossen wird, und der User wieder auf seinem Startbildschirm ist
                             this.finish();
