@@ -126,11 +126,11 @@ public class StatisticMatchActivity extends AppCompatActivity implements View.On
     {
         String selectedMatchDate;
         Date date = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
         selectedMatchDate = getIntent().getStringExtra("intentSelectedMatchDate").toString();
-        date = sdf.parse(selectedMatchDate);
-        this.selectedMatch = this.db.getSpecifyMatch(new Match(date));
+        //date = sdf.parse(selectedMatchDate);
+        this.selectedMatch = this.db.getSpecifyMatch(new Match(selectedMatchDate));
     }
 
     private void makePlayerRows() throws Exception

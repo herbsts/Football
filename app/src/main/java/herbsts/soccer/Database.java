@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
+import herbsts.soccer.pkgController.MatchController;
 import herbsts.soccer.pkgController.PlayerController;
 import herbsts.soccer.pkgData.Match;
 import herbsts.soccer.pkgData.Player;
@@ -107,7 +108,7 @@ public class Database {
     /**
      *Webservice Methods
      */
-    public boolean authPlayer(Player player) throws Exception {
+    public boolean checkPlayerWebservice(Player player) throws Exception {
         PlayerController controller = new PlayerController();
         Player playerFromWebservice = null;
         Object[] params = new Object[3];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
@@ -122,18 +123,17 @@ public class Database {
         return (playerFromWebservice.getId() != -1);            //Weil wenn id -1 ist, stimmen die Login-Daten nicht
     }
 
-    public ArrayList<Player> getAllPlayer() throws Exception {
+    public ArrayList<Player> getAllPlayersWebservice() throws Exception {
         PlayerController controller = new PlayerController();
         String result = null;
         ArrayList<Player> arrListPlayer = null;
-
         Object[] params = new Object[2];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
 
         params[0] = "GET";
         params[1] = "player";
 
         controller.execute(params);
-        result = controller.get();
+        result = controller.get();          //json-String im result speichern
 
         if(result == null){
             throw new Exception("webservice problem (getAllPlayers)");
@@ -144,4 +144,43 @@ public class Database {
 
         return arrListPlayer;
     }
+
+    public boolean addMatchWebservice(Match match) throws Exception {
+        MatchController controller = new MatchController();
+        Match matchFromWebservice = null;
+        Object[] params = new Object[3];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
+
+        params[0] = "POST";
+        params[1] = "match";
+        params[2] = match;
+
+        controller.execute(params);
+        matchFromWebservice = gson.fromJson(controller.get(), Match.class);
+
+        return (matchFromWebservice.getId() != -1);            //Weil wenn id -1 ist, stimmen die Daten nicht
+    }
+
+    public ArrayList<Match> getAllMatchesWebservice() throws Exception {
+        MatchController controller = new MatchController();
+        String result = null;
+        ArrayList<Match> arrListMatches = null;
+        Object[] params = new Object[2];        //Object, weil man player als Object übergeben muss und nicht als String, weil man das PlayerObject erst in der AsynchTask-Klasse (=ControllerPlayer) mit gson.toJson() zu einem String machen darf. Sonst geht es nicht
+
+        params[0] = "GET";
+        params[1] = "match";
+
+        controller.execute(params);
+        result = controller.get();
+
+        if(result == null){
+            throw new Exception("webservice problem (getAllMatches)");
+        }
+
+        Type matchListType = new TypeToken<ArrayList<Match>>(){}.getType();       //Erstellt den Typ den wir brauchen (ArrayList)
+        arrListMatches = gson.fromJson(result, matchListType);          //Wandelt den Json-String in eine ArrayList um
+
+        return arrListMatches;
+    }
+
+/**************************************************************************************************/
 }

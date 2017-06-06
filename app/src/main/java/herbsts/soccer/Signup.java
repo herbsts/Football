@@ -68,7 +68,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             {
                 //Überprüfung, dass ein Name eingegeben wurde
                 if (this.txtName.getText().length() > 0 && this.txtPlayerPassword.getText().length() > 0) {
-                    if (db.authPlayer(new Player(this.txtName.getText().toString(), this.txtPlayerPassword.getText().toString()))) {
+                    if (db.checkPlayerWebservice(new Player(this.txtName.getText().toString(), this.txtPlayerPassword.getText().toString()))) {
                         Intent intent = new Intent(this, MainGui.class);
                         intent.putExtra("intentPlayerName", txtName.getText().toString());
                         startActivity(intent);

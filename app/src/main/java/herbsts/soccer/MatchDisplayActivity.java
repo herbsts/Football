@@ -72,10 +72,10 @@ public class MatchDisplayActivity extends AppCompatActivity implements Statistic
         }
     }
 
-    //Makes rows with all Matches in the table
+    //Makes rows with all Matches in the list
     private void makeMatchRows() throws Exception
     {
-        ArrayAdapter<Match> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.db.getArrayListMatches());
+        ArrayAdapter<Match> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.db.getAllMatchesWebservice());
         this.lvMatch.setAdapter(arrayAdapter);
     }
 
@@ -107,16 +107,16 @@ public class MatchDisplayActivity extends AppCompatActivity implements Statistic
                     return true;
 
                 case R.id.menuItemDelete:
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                    //SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
                     lvItemString = lvMatch.getItemAtPosition(selectedRowIndex).toString();
                     dateString = lvItemString.split(",")[1];       // !!! Filtert das Datum OHNE dem ausgeschriebenen Tag davor heraus
                     dateString.trim();
 
-                    Date date = sdf.parse(dateString);
+                    //Date date = sdf.parse(dateString);
 
                     //Match hier in der Match-Activity ins Team hinzufügen und dann später wenn "Add" geklickt wird, das Team von hier ins Match kopieren
-                    final Match selectedMatch = this.db.getTsMatches().ceiling(new Match(date));
+                    final Match selectedMatch = this.db.getTsMatches().ceiling(new Match(dateString));
 
                     /**********Alert Dialog************/
 

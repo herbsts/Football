@@ -12,14 +12,14 @@ import java.util.TreeSet;
 
 public class Match implements Comparable<Match> {
     private int id = -1;
-    private Date date = null;
-    private int goalsTeam1 = -1;
-    private int goalsTeam2 = -1;
-    private TreeSet<Player> tsTeam1 = null;
-    private TreeSet<Player> tsTeam2 = null;
+    private String firmDate = null;     //String, weil sonst Webservice nicht geht
+    private int goalsA = 0;
+    private int goalsB = 0;
+    private transient TreeSet<Player> tsTeam1 = null;
+    private transient TreeSet<Player> tsTeam2 = null;
 
-    public Match(Date date) {
-        this.date = date;
+    public Match(String date) {
+        this.firmDate = date;
         this.tsTeam1 = new TreeSet<>();
         this.tsTeam2 = new TreeSet<>();
     }
@@ -28,28 +28,28 @@ public class Match implements Comparable<Match> {
         return id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        return firmDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String date) {
+        this.firmDate = date;
     }
 
     public int getGoalsTeam1() {
-        return goalsTeam1;
+        return goalsA;
     }
 
     public void setGoalsTeam1(int goalsTeam1) {
-        this.goalsTeam1 = goalsTeam1;
+        this.goalsA = goalsTeam1;
     }
 
     public int getGoalsTeam2() {
-        return goalsTeam2;
+        return goalsB;
     }
 
     public void setGoalsTeam2(int goalsTeam2) {
-        this.goalsTeam2 = goalsTeam2;
+        this.goalsB = goalsTeam2;
     }
 
 
@@ -73,12 +73,13 @@ public class Match implements Comparable<Match> {
 
     @Override
     public String toString() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");
-        return simpleDateFormat.format(date) + ", " + goalsTeam1 + ":" + goalsTeam2;
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd.MM.yyyy");
+        //SimpleDateFormat simpleDateFormatWebservice = new SimpleDateFormat("yyyy-MM-dd");
+        return firmDate + ", " + goalsA + ":" + goalsB;
     }
 
     @Override
     public int compareTo(@NonNull Match m) {
-        return this.date.compareTo(m.getDate());
+        return this.firmDate.compareTo(m.getDate());
     }
 }
