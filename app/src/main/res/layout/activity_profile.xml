@@ -7,15 +7,21 @@
     android:layout_height="wrap_content">
     <EditText
         android:id="@+id/playerName"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:hint="Player Name"/>
+        android:hint="Name"/>
+    <EditText
+        android:id="@+id/playerPw"
+        android:hint="Password"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/playerName"/>
     <Button
         android:id="@+id/addPlayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
-        android:layout_toRightOf="@+id/playerName"/>
+        android:layout_toRightOf="@+id/playerPw"/>
     <ListView
         android:id="@+id/listPlayer"
         android:layout_width="match_parent"
