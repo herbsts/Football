@@ -1,0 +1,5 @@
+<application>
+  <component name="PathMacrosImpl">
+    <macro name="adb" value="C:/Android/platform-tools" />
+  </component>
+</application>
