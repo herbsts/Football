@@ -31,7 +31,11 @@
         <activity android:name=".MatchActivity" />
         <activity android:name=".MatchDisplayActivity" />
         <activity android:name=".StatisticMatchActivity" />
-        <activity android:name=".StatisticPlayerActivity"></activity>
+        <activity android:name=".StatisticPlayerActivity" />
+        <activity
+            android:name="res.layout.xxx"
+            android:label="@string/title_activity_xxx"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

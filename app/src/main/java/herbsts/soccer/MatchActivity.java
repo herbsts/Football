@@ -1,5 +1,7 @@
 package herbsts.soccer;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +36,10 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
     /*
     gui-attributes
      */
-    private DatePicker dpMatch = null;
+    private DatePicker dpMatch;
+    private Calendar calendar;
+    private TextView dateView;
+    private int year, month, day;
     private Button btnAdd = null;
     private Button btnTeam1 = null;
     private Button btnTeam2 = null;
@@ -51,6 +56,12 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
             this.tsTeam2 = new TreeSet<>();
             this.tsAllPlayers = new TreeSet<>();
             this.db = Database.newInstance();
+            dateView = (TextView) findViewById(R.id.textView3);
+            calendar = Calendar.getInstance();
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+            showDate(year, month+1, day);
             this.getAllViews();
             this.registrateEventhandlers();
             this.makePlayerRows();
@@ -62,9 +73,42 @@ public class MatchActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private void showDate(int year, int month, int day) {
+        dateView.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+    }
+
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+        showDialog(999);
+        Toast.makeText(getApplicationContext(), "ca",
+                Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0,
+                              int arg1, int arg2, int arg3) {
+            // TODO Auto-generated method stub
+            // arg1 = year
+            // arg2 = month
+            // arg3 = day
+            showDate(arg1, arg2+1, arg3);
+        }
+    };
+
     private void getAllViews() throws Exception
     {
-        this.dpMatch = (DatePicker) findViewById(R.id.dpMatch);
         this.btnAdd = (Button) findViewById(R.id.btnAdd);
         this.btnTeam1 = (Button) findViewById(R.id.btnTeam1);
         this.btnTeam2 = (Button) findViewById(R.id.btnTeam2);

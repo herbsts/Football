@@ -4,114 +4,185 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="herbsts.soccer.MatchActivity">
+    tools:context="herbsts.soccer.MatchActivity"
+    android:background="@drawable/backgroundnew">
 
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="Add"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="27dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
-    <DatePicker
-        style="@style/date_picker_theme"
-        android:id="@+id/dpMatch"
-        android:layout_width="0dp"
-        android:layout_height="136dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="26dp"
-        android:layout_marginEnd="26dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1" />
-
-    <Button
-        android:id="@+id/btnTeam1"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="Team1"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="27dp"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/btnTeam2"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
-    <Button
-        android:id="@+id/btnTeam2"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="Team2"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/btnTeam1"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="119dp"
-        app:layout_constraintLeft_toLeftOf="@+id/btnTeam1" />
-
-    <Button
-        android:id="@+id/btnUnassign"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginStart="28dp"
-        android:text="Unassign"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnTeam2"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="118dp"
-        android:layout_marginLeft="25dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="25dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/scrollView2"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/dpMatch">
-
-        <LinearLayout
+    <RelativeLayout
+        android:id="@+id/Relative_4"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <TableRow
+            android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView2"
+                android:text="Date selected"
+                android:layout_gravity="center"
+                android:textSize="40dp"
+                android:textColor="#FFFFFF"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp" />
+        </TableRow>
+        <TableRow
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="170dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/scrollView2"
+                tools:layout_constraintRight_creator="1"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_editor_absoluteY="0dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteY="0dp"
+                    tools:layout_editor_absoluteX="8dp">
 
-            <TableLayout
-                android:id="@+id/tblPlayer"
+                    <TableLayout
+                        android:id="@+id/tblPlayer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        tools:layout_editor_absoluteX="30dp"
+                        tools:layout_editor_absoluteY="405dp">
+
+                    </TableLayout>
+                </LinearLayout>
+            </ScrollView>
+        </TableRow>
+        <TableRow
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/setDate"
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                tools:layout_editor_absoluteX="30dp"
-                tools:layout_editor_absoluteY="405dp">
+                android:layout_height="48dp"
+                android:text="Set Date"
+                android:onClick="setDate"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintBottom_creator="1"
+                app:layout_constraintBottom_toTopOf="@+id/btnTeam2"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="10dp"
+                tools:layout_constraintLeft_creator="1"
+                app:layout_constraintLeft_toLeftOf="parent" />
+        </TableRow>
+        <TableRow
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnTeam1"
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Team1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintBottom_creator="1"
+                app:layout_constraintBottom_toTopOf="@+id/btnTeam2"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:layout_constraintLeft_creator="1"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintLeft_toLeftOf="parent" />
+        </TableRow>
+        <TableRow
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnTeam2"
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Team2"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintBottom_creator="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/btnTeam1"
+                tools:layout_constraintLeft_creator="1"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintLeft_toLeftOf="@+id/btnTeam1" />
+        </TableRow>
+        <TableRow
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnUnassign"
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Unassign"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintTop_creator="1"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/btnTeam2"
+                app:layout_constraintLeft_toLeftOf="parent" />
+        </TableRow>
+        <TableRow
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnAdd"
+                android:background="@drawable/buttonshape"
+                android:textColor="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintLeft_creator="1"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+        </TableRow>
+    </TableLayout>
+    </RelativeLayout>
 
-            </TableLayout>
-        </LinearLayout>
-    </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </android.support.constraint.ConstraintLayout>
