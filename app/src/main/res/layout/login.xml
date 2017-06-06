@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/field2">
+
+    <EditText
+        android:layout_width="352dp"
+        android:layout_height="58dp"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        tools:layout_editor_absoluteY="187dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:id="@+id/editText2" />
+
+    <EditText
+        android:layout_width="352dp"
+        android:layout_height="58dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        tools:layout_editor_absoluteY="253dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:id="@+id/editText3" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/profile"
+        tools:layout_editor_absoluteY="202dp"
+        tools:layout_editor_absoluteX="33dp"
+        android:id="@+id/imageView6"
+        android:tint="@android:color/background_light" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/password"
+        tools:layout_editor_absoluteY="276dp"
+        tools:layout_editor_absoluteX="35dp"
+        android:id="@+id/imageView7"
+        android:tint="@android:color/background_light" />
+</android.support.constraint.ConstraintLayout>
